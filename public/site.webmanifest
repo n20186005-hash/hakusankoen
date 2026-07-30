@@ -1,0 +1,13 @@
+{
+  "name": "白山公園ガイド",
+  "short_name": "白山公園",
+  "description": "新潟・白山公園の見どころ、四季、アクセス、駐車場、散歩コースを案内する非公式ガイド。",
+  "lang": "ja",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f0e7",
+  "theme_color": "#173c32",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

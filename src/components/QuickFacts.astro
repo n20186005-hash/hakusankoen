@@ -1,0 +1,21 @@
+---
+import { quickFacts } from '../data/site';
+---
+<div class="quick-facts container-wide" data-reveal>
+  {quickFacts.map((fact) => (
+    <div class="quick-fact">
+      <span>{fact.label}</span>
+      <strong>{fact.value}</strong>
+      <small>{fact.note}</small>
+    </div>
+  ))}
+</div>
+<style>
+  .quick-facts { position: relative; z-index: 4; display: grid; grid-template-columns: repeat(4,1fr); margin-top: -52px; overflow: hidden; border: 1px solid rgba(23,60,50,.12); border-radius: 28px; background: rgba(251,250,246,.94); box-shadow: var(--shadow-soft); backdrop-filter: blur(16px); }
+  .quick-fact { position: relative; display: grid; gap: .2rem; padding: 1.55rem 1.7rem; }
+  .quick-fact:not(:last-child)::after { content: ''; position: absolute; top: 18%; right: 0; bottom: 18%; width: 1px; background: rgba(23,60,50,.1); }
+  .quick-fact span { color: #9b3a31; font-size: .67rem; font-weight: 700; letter-spacing: .12em; }
+  .quick-fact strong { color: #173c32; font-family: var(--font-serif); font-size: clamp(1.15rem,2.2vw,1.55rem); font-weight: 600; letter-spacing: .05em; }
+  .quick-fact small { color: rgba(31,41,37,.52); font-size: .68rem; }
+  @media (max-width: 760px) { .quick-facts { grid-template-columns: 1fr 1fr; margin-top: -28px; border-radius: 22px; } .quick-fact { padding: 1.2rem; } .quick-fact:nth-child(2)::after { display: none; } .quick-fact:nth-child(-n+2) { border-bottom: 1px solid rgba(23,60,50,.1); } }
+</style>

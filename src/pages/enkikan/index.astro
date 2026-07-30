@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import Notice from '../../components/Notice.astro';
+---
+<BaseLayout title="燕喜館｜白山公園の伝統建築・見学案内" description="白山公園内の燕喜館（えんきかん）の歴史、一般見学時間、休館日の目安、庭園と抹茶の楽しみ方を紹介します。">
+  <Breadcrumbs items={[{ label: '燕喜館' }]} />
+  <PageHero kicker="Enkikan" title="座敷の向こうに、昔の新潟。" description="明治期の商家の座敷を移築・再現した燕喜館。建具や床の間、庭を眺めながら、公園散歩に静かなひと休みを加えます。" image="/images/enkikan.webp" imageAlt="白山公園内にある燕喜館の外観" />
+  <section class="editorial-section">
+    <div class="container-wide facts-grid">
+      <div class="fact-card" data-reveal><p class="fact-label">VISIT</p><strong>9:00–17:00</strong><p>一般見学の通常時間の目安。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">ADMISSION</p><strong>一般見学 無料</strong><p>催し・貸室・飲食は別途の場合あり。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">CLOSED</p><strong>第1・第3月曜</strong><p>祝日の場合は変更。年末年始休館あり。</p></div>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted">
+    <div class="container-wide content-grid is-reversed">
+      <div class="photo-pair" data-reveal><figure class="image-frame"><img src="/images/enkikan.webp" alt="燕喜館の伝統的な外観" width="1280" height="900" loading="lazy" /></figure><figure class="image-frame"><img src="/images/summer-pond.webp" alt="燕喜館近くの蓮池と緑" width="1280" height="900" loading="lazy" /></figure></div>
+      <article class="editorial-copy" data-reveal><p class="kicker">A Merchant House Memory</p><h2>「宴を喜ぶ」館</h2><p>燕喜館は、明治期の新潟を代表する商家・斎藤家の旧宅の一部を移築、再現した文化施設です。館名には、人が集い、宴をともにして喜ぶという意味が込められています。</p><p>外から眺めるだけでなく、公開時間内には座敷、欄間、建具、庭とのつながりを近い距離で感じられます。華美すぎない端正な空間は、白山公園の水辺とよく調和します。</p><h3>抹茶と喫茶</h3><p>提供日には抹茶やコーヒーと菓子を楽しめることがあります。毎日・終日提供とは限らないため、館内表示をご確認ください。</p></article>
+    </div>
+  </section>
+  <section class="editorial-section">
+    <div class="container-reading content-grid">
+      <article class="editorial-copy" data-reveal><p class="kicker">How to Enjoy</p><h2>燕喜館で見るもの</h2><ol class="numbered-list"><li><h3>座敷と床の間</h3><p>空間の比例、畳、しつらえをゆっくり眺めます。</p></li><li><h3>欄間と建具</h3><p>光をやわらかく通し、部屋を仕切る細やかな意匠。</p></li><li><h3>庭との境界</h3><p>縁側から庭へ視線が伸びる、日本建築らしい構成。</p></li><li><h3>蓮池への続き</h3><p>見学後は水辺へ。夏は朝の蓮と組み合わせるのがおすすめです。</p></li></ol></article>
+      <aside class="data-card sticky-aside" data-reveal><div class="data-card-header"><h2>利用案内の目安</h2></div><div class="data-card-body"><table class="info-table"><tbody><tr><th>一般見学</th><td>9:00〜17:00</td></tr><tr><th>施設利用</th><td>9:00〜21:00</td></tr><tr><th>見学料</th><td>通常無料</td></tr><tr><th>休館</th><td>第1・第3月曜、年末年始など</td></tr></tbody></table></div></aside>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted"><div class="container-reading"><Notice><p>貸切利用、催事、維持管理のため見学できない部屋がある場合があります。館内では静かに過ごし、撮影可否の表示に従ってください。</p></Notice></div></section>
+</BaseLayout>

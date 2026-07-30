@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="写真・資料クレジット｜白山公園ガイド" description="HakusanKoen.comで使用している白山公園、燕喜館、白山神社の写真ライセンスと、案内情報の主な確認先を掲載します。" noindex={true}>
+  <Breadcrumbs items={[{ label: '写真・資料クレジット' }]} />
+  <PageHero kicker="Credits" title="写真と資料について。" description="このサイトでは、現地を伝える実写写真を適切なライセンスのもとで加工・掲載しています。必要な外部参照はこのページに集約しました。" image="/images/summer-pond.webp" imageAlt="白山公園の緑と水辺" />
+  <section class="editorial-section">
+    <div class="container-reading content-grid">
+      <article class="editorial-copy" data-reveal>
+        <p class="kicker">Photography</p><h2>写真クレジット</h2>
+        <div class="license-list">
+          <div class="license-item"><strong>白山公園・空中庭園・梅林・池・園路の写真</strong><p>作者：DAI-nk ／ 出典：Wikimedia Commons「Niigata City Hakusan Park」／ ライセンス：CC BY-SA 3.0。掲載用にトリミング、リサイズ、WebP変換、色調の微調整を行っています。</p><p><a href="https://commons.wikimedia.org/wiki/Category:Niigata_City_Hakusan_Park" rel="external nofollow noopener">写真カテゴリ</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" rel="external nofollow noopener">CC BY-SA 3.0</a></p></div>
+          <div class="license-item"><strong>燕喜館</strong><p>作品名：Enkikan 20250511.jpg ／ 作者：Suikotei ／ 出典：Wikimedia Commons ／ ライセンス：CC BY 4.0。掲載用にトリミング、リサイズ、WebP変換を行っています。</p><p><a href="https://commons.wikimedia.org/wiki/File:Enkikan_20250511.jpg" rel="external nofollow noopener">作品ページ</a> · <a href="https://creativecommons.org/licenses/by/4.0/" rel="external nofollow noopener">CC BY 4.0</a></p></div>
+          <div class="license-item"><strong>新潟白山神社</strong><p>作品名：Hakusan Shrine (Niigata City) Haiden.jpg ／ 作者：掬茶 ／ 出典：Wikimedia Commons ／ ライセンス：CC BY-SA 4.0。掲載用にトリミング、リサイズ、WebP変換を行っています。</p><p><a href="https://commons.wikimedia.org/wiki/File:Hakusan_Shrine_(Niigata_City)_Haiden.jpg" rel="external nofollow noopener">作品ページ</a> · <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="external nofollow noopener">CC BY-SA 4.0</a></p></div>
+        </div>
+      </article>
+      <aside class="sticky-aside editorial-copy" data-reveal>
+        <p class="kicker">Information Sources</p><h2>主な確認先</h2>
+        <p>公園の歴史、名勝指定、施設、交通、駐車場、神社、燕喜館の案内は、次の公的・公式情報を中心に確認しています。</p>
+        <ul class="tip-list"><li>新潟市「白山公園」</li><li>新潟市「国指定名勝 白山公園」</li><li>にいがた観光ナビ</li><li>白山公園駐車場 管理案内</li><li>新潟総鎮守 白山神社</li><li>新潟市「燕喜館」</li></ul>
+        <p>外部サイトへの常時誘導を避けるため、本文中の外部リンクは原則として掲載していません。最新の催事、交通規制、開花状況は各運営者の発表を優先してください。</p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

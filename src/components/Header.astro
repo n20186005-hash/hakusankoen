@@ -1,0 +1,68 @@
+---
+import { mainNav } from '../data/site';
+import Icon from './Icon.astro';
+const pathname = Astro.url.pathname;
+const isHome = pathname === '/';
+---
+<header class:list={['site-header', isHome && 'is-home']} data-header>
+  <div class="container-wide header-inner">
+    <a class="brand" href="/" aria-label="白山公園ガイド トップページ">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="20" fill="currentColor" opacity=".08"/><path d="M8 27c7-5 21-5 28 0-6 1-10 4-14 10-4-6-8-9-14-10Z" fill="currentColor"/><path d="M22 7c0 7-4 11-11 14 7 0 11 4 11 11 0-7 4-11 11-11-7-3-11-7-11-14Z" fill="#d7aaad"/></svg>
+      </span>
+      <span class="brand-copy"><strong class="serif">白山公園</strong><small>HAKUSAN KŌEN GUIDE</small></span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="メインナビゲーション">
+      {mainNav.map((item) => (
+        <a href={item.href} aria-current={pathname.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>
+      ))}
+    </nav>
+
+    <a class="header-access" href="/access/">交通案内 <Icon name="arrow" size={16} /></a>
+
+    <button class="menu-button" type="button" aria-label="メニューを開く" aria-expanded="false" data-menu-button>
+      <span data-menu-open><Icon name="menu" size={25} /></span>
+      <span class="hidden" data-menu-close><Icon name="close" size={25} /></span>
+    </button>
+  </div>
+
+  <div class="mobile-panel" data-mobile-panel hidden>
+    <nav class="container-wide mobile-nav" aria-label="モバイルナビゲーション">
+      {mainNav.map((item, index) => (
+        <a href={item.href}><span>0{index + 1}</span>{item.label}<Icon name="arrow" size={17} /></a>
+      ))}
+      <a href="/hakusan-jinja/"><span>07</span>白山神社<Icon name="arrow" size={17} /></a>
+      <a href="/enkikan/"><span>08</span>燕喜館<Icon name="arrow" size={17} /></a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header { position: sticky; top: 0; z-index: 50; height: var(--header-height); border-bottom: 1px solid transparent; transition: background .2s ease, border-color .2s ease, box-shadow .2s ease; }
+  .site-header.is-home:not(.is-scrolled) .brand, .site-header.is-home:not(.is-scrolled) .desktop-nav a, .site-header.is-home:not(.is-scrolled) .header-access, .site-header.is-home:not(.is-scrolled) .menu-button { color: #fff; }
+  .site-header.is-home:not(.is-scrolled) .header-access { border-color: rgba(255,255,255,.5); }
+  .site-header.is-home:not(.is-scrolled) .desktop-nav a::after { background: #f0d7d9; }
+  .site-header.is-scrolled { background: rgba(251,250,246,.9); border-color: rgba(23,60,50,.1); box-shadow: 0 8px 30px rgba(27,49,40,.06); backdrop-filter: blur(16px); }
+  .header-inner { height: 100%; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 2rem; }
+  .brand { display: inline-flex; align-items: center; gap: .65rem; color: #173c32; }
+  .brand-mark { display: grid; width: 42px; height: 42px; place-items: center; }
+  .brand-mark svg { width: 100%; height: 100%; }
+  .brand-copy { display: grid; line-height: 1; }
+  .brand-copy strong { font-size: 1.12rem; letter-spacing: .14em; font-weight: 600; }
+  .brand-copy small { margin-top: .38rem; font-size: .55rem; letter-spacing: .16em; opacity: .62; }
+  .desktop-nav { display: flex; align-items: center; justify-content: center; gap: clamp(1rem, 2.4vw, 2.2rem); }
+  .desktop-nav a { position: relative; padding: .4rem 0; font-size: .77rem; font-weight: 700; letter-spacing: .08em; color: rgba(31,41,37,.72); }
+  .desktop-nav a::after { content: ''; position: absolute; left: 0; right: 100%; bottom: 0; height: 1px; background: #9b3a31; transition: right .2s ease; }
+  .desktop-nav a:hover, .desktop-nav a[aria-current='page'] { color: #173c32; }
+  .desktop-nav a:hover::after, .desktop-nav a[aria-current='page']::after { right: 0; }
+  .header-access { display: inline-flex; align-items: center; gap: .45rem; border-bottom: 1px solid rgba(23,60,50,.35); padding: .2rem 0; color: #173c32; font-size: .78rem; font-weight: 700; letter-spacing: .08em; }
+  .menu-button { display: none; border: 0; background: none; color: #173c32; cursor: pointer; padding: .4rem; }
+  .hidden { display: none; }
+  .mobile-panel { position: fixed; top: var(--header-height); left: 0; right: 0; max-height: calc(100vh - var(--header-height)); overflow-y: auto; border-top: 1px solid rgba(23,60,50,.08); background: rgba(251,250,246,.98); box-shadow: 0 30px 60px rgba(23,60,50,.14); backdrop-filter: blur(18px); }
+  .mobile-nav { display: grid; padding-block: 1rem 2rem; }
+  .mobile-nav a { display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: .5rem; border-bottom: 1px solid rgba(23,60,50,.1); padding: 1rem .2rem; color: #173c32; font-family: var(--font-serif); font-size: 1.15rem; }
+  .mobile-nav a span { color: #9b3a31; font-family: var(--font-sans); font-size: .66rem; letter-spacing: .12em; }
+  @media (max-width: 1020px) { .desktop-nav, .header-access { display: none; } .header-inner { grid-template-columns: 1fr auto; } .menu-button { display: inline-grid; place-items: center; } }
+  @media (max-width: 520px) { .brand-mark { width: 36px; height: 36px; } .brand-copy strong { font-size: 1rem; } .brand-copy small { font-size: .48rem; } }
+</style>

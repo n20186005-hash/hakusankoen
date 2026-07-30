@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import Notice from '../../components/Notice.astro';
+---
+<BaseLayout title="白山公園の桜｜見頃・撮影場所・散歩コース" description="新潟・白山公園の桜を楽しむための見頃の目安、ひょうたん池と空中庭園の撮影場所、混雑を避ける歩き方を案内します。" image="/images/og-hakusan-koen.webp">
+  <Breadcrumbs items={[{ label: '四季', href: '/seasons/' }, { label: '桜' }]} />
+  <PageHero kicker="Sakura Guide" title="水面と朱橋に、春が映る。" description="歴史庭園の落ち着いた桜と、空中庭園の開放的な桜。同じ公園の中で、二つの春景色を楽しめます。" image="/images/air-garden-sakura.webp" imageAlt="桜に包まれた白山公園空中庭園" />
+  <section class="editorial-section">
+    <div class="container-wide facts-grid">
+      <div class="fact-card" data-reveal><p class="fact-label">BEST SEASON</p><strong>4月上旬–中旬</strong><p>気温によって前後する平年の目安です。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">BEST TIME</p><strong>朝 7:00–9:00</strong><p>比較的静かで、水面も穏やかな時間帯。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">WALK</p><strong>約60分</strong><p>神社、池、空中庭園を一周する目安。</p></div>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted">
+    <div class="container-wide content-grid">
+      <div class="photo-pair" data-reveal>
+        <figure class="image-frame"><img src="/images/hero.webp" alt="白山公園の池と春の桜" width="1600" height="1000" loading="lazy" /></figure>
+        <figure class="image-frame"><img src="/images/plum-grove.webp" alt="白山公園の梅林" width="1280" height="900" loading="lazy" /></figure>
+      </div>
+      <article class="editorial-copy" data-reveal>
+        <p class="kicker">Where to See</p>
+        <h2>桜を見る三つの場所</h2>
+        <ol class="numbered-list">
+          <li><h3>ひょうたん池</h3><p>池、橋、松、桜を一枚に収めやすい白山公園らしい場所。水面の反射は風の弱い朝に。</p></li>
+          <li><h3>空中庭園</h3><p>桜の下を歩ける開放的な景観。りゅーとぴあの建築や曲線的な園路も背景になります。</p></li>
+          <li><h3>白山神社周辺</h3><p>参道と社殿の雰囲気を含めて春を味わえる場所。参拝者の動線を妨げずに撮影しましょう。</p></li>
+        </ol>
+      </article>
+    </div>
+  </section>
+  <section class="editorial-section">
+    <div class="container-reading content-grid">
+      <article class="editorial-copy" data-reveal>
+        <p class="kicker">One-hour Route</p><h2>朝の桜散歩</h2>
+        <ol class="route-steps">
+          <li><strong>市役所前側から入園</strong><span>人の流れが少ないうちに歴史庭園へ。</span></li>
+          <li><strong>ひょうたん池を一周</strong><span>橋の両側から水面と桜を眺めます。</span></li>
+          <li><strong>白山神社へ参拝</strong><span>楼門の利用時間内なら境内へ。</span></li>
+          <li><strong>蓮池・燕喜館前</strong><span>春の若葉と伝統建築を静かに鑑賞。</span></li>
+          <li><strong>空中庭園へ</strong><span>最後に開放的な桜並木を歩きます。</span></li>
+        </ol>
+      </article>
+      <aside class="data-card sticky-aside" data-reveal>
+        <div class="data-card-header"><h2>桜の日の心得</h2></div>
+        <div class="data-card-body"><ul class="tip-list"><li>園路をふさぐ三脚の使用は避ける</li><li>根元や植栽の中へ入らない</li><li>ごみは持ち帰り、宴会ルールを確認する</li><li>夜間は文化施設と駐車場の時間に注意</li><li>週末は公共交通を優先する</li></ul></div>
+      </aside>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted"><div class="container-reading"><Notice tone="season" title="開花情報"><p>本ページは見頃の平年傾向を案内しています。開花日、満開日、ライトアップ、露店などの実施内容は年度ごとに変わります。</p></Notice></div></section>
+</BaseLayout>

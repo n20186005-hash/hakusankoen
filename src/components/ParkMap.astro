@@ -1,0 +1,65 @@
+---
+import Icon from './Icon.astro';
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<div class:list={['park-map', compact && 'is-compact']} data-reveal>
+  <div class="map-head">
+    <div><p class="kicker">Walking Map</p><h3 class="serif">白山公園を、ひとつながりに。</h3></div>
+    <span>概略図・縮尺不同</span>
+  </div>
+  <div class="map-canvas" role="img" aria-label="白山神社、ひょうたん池、美由岐賀岡、蓮池、燕喜館、空中庭園、りゅーとぴあの位置関係を示す概略図">
+    <svg viewBox="0 0 920 500" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="water" x1="0" x2="1"><stop stop-color="#b9d0ca"/><stop offset="1" stop-color="#d9e4df"/></linearGradient>
+        <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M28 0H0V28" fill="none" stroke="#173c32" stroke-opacity=".045"/></pattern>
+      </defs>
+      <rect width="920" height="500" rx="32" fill="#f7f3e9"/>
+      <rect width="920" height="500" rx="32" fill="url(#grid)"/>
+      <path d="M60 414C180 380 244 422 350 389s198-20 294-61 144-35 216-16" fill="none" stroke="#9b3a31" stroke-width="6" stroke-linecap="round" opacity=".75"/>
+      <path d="M140 120c64-56 150-51 197 7s30 133-31 167-150 15-182-50 2-89 16-124Z" fill="#dce5d8"/>
+      <path d="M464 86c93-43 217 2 246 92 26 83-24 167-113 183-89 17-173-39-176-128-2-66 10-119 43-147Z" fill="#e0e5d9"/>
+      <ellipse cx="250" cy="230" rx="92" ry="48" fill="url(#water)" stroke="#315b4e" stroke-opacity=".28" stroke-width="2"/>
+      <path d="M182 226c24-30 93-45 144 5" fill="none" stroke="#9b3a31" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="514" cy="256" rx="84" ry="48" fill="url(#water)" stroke="#315b4e" stroke-opacity=".28" stroke-width="2"/>
+      <circle cx="386" cy="202" r="54" fill="#b7c9ad" opacity=".84"/>
+      <path d="M359 215c12-36 39-55 60-28" fill="none" stroke="#315b4e" stroke-width="4" stroke-linecap="round"/>
+      <rect x="624" y="98" width="118" height="88" rx="8" fill="#8c674d" opacity=".9"/>
+      <path d="m612 105 71-46 71 46" fill="#6b4b38"/>
+      <rect x="715" y="254" width="148" height="108" rx="18" fill="#ccd8d5" stroke="#173c32" stroke-opacity=".22"/>
+      <path d="M733 328c30-48 74-69 111-61" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+      <rect x="67" y="72" width="92" height="92" rx="10" fill="#7b513b"/>
+      <path d="m55 83 58-45 58 45" fill="#9b3a31"/>
+      <path d="M111 164v45" stroke="#9b3a31" stroke-width="5"/>
+      <path d="M93 182h36" stroke="#9b3a31" stroke-width="5"/>
+      <g fill="#173c32" font-family="sans-serif" font-size="16" font-weight="700">
+        <text x="54" y="62">白山神社</text><text x="185" y="305">ひょうたん池</text><text x="340" y="279">美由岐賀岡</text><text x="478" y="326">蓮池</text><text x="627" y="211">燕喜館</text><text x="721" y="390">空中庭園</text><text x="738" y="435">りゅーとぴあ</text>
+      </g>
+      <g fill="#9b3a31" font-family="sans-serif" font-size="12" font-weight="700">
+        <text x="77" y="225">参拝</text><text x="371" y="354">庭園散歩</text><text x="695" y="332">文化施設へ</text>
+      </g>
+      <g fill="#315b4e">
+        <circle cx="199" cy="126" r="9"/><circle cx="302" cy="121" r="7"/><circle cx="432" cy="128" r="8"/><circle cx="571" cy="129" r="10"/><circle cx="606" cy="350" r="8"/><circle cx="326" cy="363" r="8"/>
+      </g>
+    </svg>
+  </div>
+  <div class="map-legend">
+    <span><i class="route"></i>おすすめ動線</span><span><i class="water"></i>水景</span><span><i class="green"></i>緑地</span>
+    <a href="/courses/">散歩コースを見る <Icon name="arrow" size={16}/></a>
+  </div>
+</div>
+<style>
+  .park-map { overflow: hidden; border: 1px solid rgba(23,60,50,.12); border-radius: 32px; background: rgba(251,250,246,.86); box-shadow: var(--shadow-soft); }
+  .map-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding: 2rem 2.2rem 1.4rem; }
+  .map-head h3 { margin: .7rem 0 0; color: #173c32; font-size: clamp(1.35rem,2.8vw,2.25rem); font-weight: 500; letter-spacing: .06em; }
+  .map-head > span { color: rgba(31,41,37,.45); font-size: .65rem; }
+  .map-canvas { padding-inline: 1rem; }
+  .map-canvas svg { width: 100%; height: auto; }
+  .map-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; border-top: 1px solid rgba(23,60,50,.09); padding: 1.1rem 2rem 1.4rem; color: rgba(31,41,37,.62); font-size: .72rem; }
+  .map-legend span { display: inline-flex; align-items: center; gap: .5rem; }
+  .map-legend i { display: inline-block; width: 22px; height: 6px; border-radius: 999px; }
+  .map-legend .route { background: #9b3a31; }.map-legend .water { background: #b9d0ca; }.map-legend .green { background: #b7c9ad; }
+  .map-legend a { display: inline-flex; align-items: center; gap: .4rem; margin-left: auto; color: #173c32; font-weight: 700; }
+  .is-compact .map-head { padding: 1.3rem 1.4rem .8rem; }.is-compact .map-head h3 { font-size: 1.45rem; }.is-compact .map-legend { padding-inline: 1.3rem; }
+  @media (max-width: 680px) { .map-head { align-items: start; padding: 1.4rem 1.2rem 1rem; } .map-head > span { display: none; } .map-canvas { overflow-x: auto; padding: 0; } .map-canvas svg { width: 780px; max-width: none; } .map-legend { gap: .8rem 1rem; padding: 1rem 1.2rem 1.2rem; } .map-legend a { width: 100%; margin: .3rem 0 0; } }
+</style>

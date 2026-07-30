@@ -1,0 +1,17 @@
+---
+interface Props { kicker?: string; title: string; description?: string; align?: 'left' | 'center'; }
+const { kicker, title, description, align = 'left' } = Astro.props;
+---
+<div class:list={['section-heading', align === 'center' && 'is-center']} data-reveal>
+  {kicker && <p class="kicker">{kicker}</p>}
+  <h2 class="section-title">{title}</h2>
+  {description && <p>{description}</p>}
+</div>
+<style>
+  .section-heading { max-width: 760px; }
+  .section-heading .section-title { margin: .9rem 0 1.1rem; }
+  .section-heading > p:last-child { color: rgba(31,41,37,.68); line-height: 2; }
+  .section-heading.is-center { margin-inline: auto; text-align: center; }
+  .section-heading.is-center .kicker { justify-content: center; }
+  .section-heading.is-center .kicker::after { content: ''; width: 30px; height: 1px; background: currentColor; }
+</style>

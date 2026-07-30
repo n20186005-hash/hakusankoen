@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import Notice from '../../components/Notice.astro';
+import { seasons } from '../../data/site';
+---
+<BaseLayout title="白山公園の四季｜桜・蓮・紅葉・雪景色" description="白山公園を一年通して楽しむための季節案内。春の桜、夏の蓮、秋の紅葉、冬の雪景色と服装の目安を紹介します。">
+  <Breadcrumbs items={[{ label: '四季' }]} />
+  <PageHero kicker="Four Seasons" title="季節が変わるたび、もう一度歩きたい。" description="花だけでなく、木陰、水面、落葉、雪の静けさまで。白山公園には一年を通して歩く理由があります。" image="/images/autumn-walk.webp" imageAlt="秋の白山公園空中庭園" />
+  <section class="editorial-section">
+    <div class="container-wide">
+      <div class="facts-grid">
+        <div class="fact-card" data-reveal><p class="fact-label">MAR–MAY</p><strong>梅・桜・牡丹</strong><p>花を追いながら長く春を楽しめます。</p></div>
+        <div class="fact-card" data-reveal><p class="fact-label">JUN–AUG</p><strong>新緑・蓮</strong><p>朝の水辺と深い木陰が心地よい季節。</p></div>
+        <div class="fact-card" data-reveal><p class="fact-label">SEP–FEB</p><strong>紅葉・雪</strong><p>静かな園路と新潟らしい冬景色へ。</p></div>
+      </div>
+    </div>
+  </section>
+  {seasons.map((season, index) => <section id={index===1?'summer':index===2?'autumn':index===3?'winter':undefined} class:list={['editorial-section', index%2===0 && 'is-tinted']}>
+    <div class="container-wide content-grid">
+      <figure class:list={['image-frame', index%2===1 && 'sticky-aside']} data-reveal><img src={season.image} alt={`${season.name}の白山公園`} width="1280" height="900" loading="lazy" /></figure>
+      <article class="editorial-copy" data-reveal>
+        <p class="kicker">{season.name} · {season.period}</p>
+        <h2>{season.title}</h2>
+        <p>{season.description}</p>
+        {index===0 && <><h3>見どころ</h3><p>梅林から桜、八重桜、牡丹へ。ひょうたん池と空中庭園は、桜の背景が異なるため両方歩くのがおすすめです。</p><h3>歩き方</h3><p>開花期の週末は昼前後が混みやすく、朝は比較的ゆっくり撮影できます。夜間点灯の実施内容は年ごとに確認してください。</p></>}
+        {index===1 && <><h3>見どころ</h3><p>蓮池は朝の時間に花が開きやすく、水面の反射も穏やかです。日中は木陰と文化施設をつなぐ短いコースが快適です。</p><h3>服装</h3><p>新潟の夏は湿度が高くなります。飲み物、帽子、虫よけを用意し、無理のない時間で歩いてください。</p></>}
+        {index===2 && <><h3>見どころ</h3><p>園路の落葉、池畔の木々、空中庭園の曲線が秋色に変わります。曇天でも色が落ち着いて見え、庭園撮影に向きます。</p><h3>歩き方</h3><p>夕方は日が短くなるため、歴史庭園を先に歩き、空中庭園で夕景を迎える順路が安心です。</p></>}
+        {index===3 && <><h3>見どころ</h3><p>雪をまとった松、庭石、朱色の橋は新潟らしい景色。白山神社の初詣と組み合わせる人も多い季節です。</p><h3>注意</h3><p>積雪や凍結で園路が滑りやすくなります。防水性と滑りにくさのある靴で、除雪状況を見ながら歩いてください。</p></>}
+        {index===0 && <a class="button-secondary" href="/sakura/" style="margin-top:1rem">桜の詳しい案内へ</a>}
+      </article>
+    </div>
+  </section>)}
+  <section class="editorial-section"><div class="container-reading"><Notice tone="season" title="見頃について"><p>花や紅葉の時期は天候によって毎年変わります。本サイトの月表示は平年の目安です。出発前に新潟市や施設の最新発表をご確認ください。</p></Notice></div></section>
+</BaseLayout>

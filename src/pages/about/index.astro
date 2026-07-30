@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import Notice from '../../components/Notice.astro';
+---
+<BaseLayout title="白山公園の歴史｜日本最初期の都市公園を歩く" description="1872年の整備開始から国指定名勝まで。新潟・白山公園の成り立ち、回遊式庭園、見どころを日本語で紹介します。">
+  <Breadcrumbs items={[{ label: '白山公園の歴史' }]} />
+  <PageHero kicker="History & Landscape" title="150年の時間が、街の庭になる。" description="明治の都市づくりから始まり、市民の散歩道として受け継がれてきた白山公園。その歴史を、今も残る水辺と石碑からたどります。" image="/images/garden-lantern.webp" imageAlt="白山公園の池畔に立つ石灯籠" />
+
+  <section class="editorial-section">
+    <div class="container-reading content-grid">
+      <aside class="sticky-aside" data-reveal>
+        <p class="kicker">At a Glance</p>
+        <h2 class="section-title">日本の公園史に残る場所</h2>
+        <table class="info-table">
+          <tbody>
+            <tr><th>整備開始</th><td>1872年（明治5年）</td></tr>
+            <tr><th>公園認可</th><td>1873年（明治6年）</td></tr>
+            <tr><th>様式</th><td>オランダ風回遊式庭園</td></tr>
+            <tr><th>国指定名勝</th><td>2018年10月15日</td></tr>
+            <tr><th>所在地</th><td>新潟市中央区一番堀通町地先</td></tr>
+          </tbody>
+        </table>
+      </aside>
+      <article class="editorial-copy" data-reveal>
+        <h2>港町・新潟に生まれた近代公園</h2>
+        <p>白山公園の整備は1872年、当時の新潟県令・楠本正隆のもとで始まりました。翌1873年、太政官布告によって公園として認められた国内最初期の25公園のひとつです。</p>
+        <p>開港地として西洋文化を受け入れていた新潟らしく、池、築山、島、橋、園路を巡る景観は「オランダ風回遊式庭園」と表現されています。いわゆる西洋式花壇ではなく、水辺を歩きながら視点が移り変わる、当時の新しい公共空間でした。</p>
+        <h3>庭園の骨格を今も歩ける</h3>
+        <p>ひょうたん池、蓮池、美由岐賀岡、石灯籠、記念碑など、明治期に形づくられた要素が現在も園内に残ります。歴史を知らずに歩いても心地よく、背景を知ると一つひとつの景色が街の記憶に見えてきます。</p>
+        <h3>国指定名勝へ</h3>
+        <p>近代都市公園の成立過程を伝える庭園として評価され、2018年に国の名勝に指定されました。指定区域は公園全体ではなく、歴史的な庭園を中心とする範囲です。</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="editorial-section is-tinted">
+    <div class="container-reading">
+      <div class="content-grid is-reversed">
+        <figure class="image-frame" data-reveal><img src="/images/summer-pond.webp" alt="木々に囲まれた白山公園の池" width="1280" height="900" loading="lazy" /></figure>
+        <div data-reveal>
+          <p class="kicker">Chronology</p>
+          <h2 class="section-title">白山公園の歩み</h2>
+          <div class="timeline">
+            <div class="timeline-item"><time>1872</time><div><h3>公園の整備が始まる</h3><p>市民が憩える公共空間として、池や築山、園路が整えられました。</p></div></div>
+            <div class="timeline-item"><time>1873</time><div><h3>国内最初期の公園に</h3><p>太政官布告を受け、公園として認可された25か所のひとつとなります。</p></div></div>
+            <div class="timeline-item"><time>1878</time><div><h3>明治天皇の新潟巡幸</h3><p>美由岐賀岡の名は、巡幸にまつわる園内の歴史を伝えています。</p></div></div>
+            <div class="timeline-item"><time>1998</time><div><h3>空中庭園へ広がる</h3><p>文化施設の整備とともに、屋上庭園と歩行空間が加わりました。</p></div></div>
+            <div class="timeline-item"><time>2018</time><div><h3>国指定名勝</h3><p>日本の近代公園史を伝える重要な庭園として国の名勝に指定されました。</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="editorial-section">
+    <div class="container-reading">
+      <Notice><p>園内の碑や建物は、公開状況や立入範囲が変わることがあります。文化財を傷つけず、植栽内へ入らずに鑑賞してください。</p></Notice>
+    </div>
+  </section>
+</BaseLayout>

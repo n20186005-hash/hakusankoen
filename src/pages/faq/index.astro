@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import { faqList, site } from '../../data/site';
+const faqSchema = {'@context':'https://schema.org','@type':'FAQPage',mainEntity:faqList.map(item=>({'@type':'Question',name:item.question,acceptedAnswer:{'@type':'Answer',text:item.answer}}))};
+---
+<BaseLayout title="白山公園のよくある質問｜時間・料金・桜・交通" description="白山公園の入園時間、料金、新潟駅からの行き方、桜、雨の日、ベビーカー・車いすについて回答します。" schema={faqSchema}>
+  <Breadcrumbs items={[{ label: 'よくある質問' }]} />
+  <PageHero kicker="Frequently Asked Questions" title="出かける前の、小さな疑問に。" description="開園時間、料金、交通、季節、歩きやすさ。白山公園を安心して歩くための基本をまとめました。" image="/images/garden-lantern.webp" imageAlt="白山公園の池と石灯籠" />
+  <section class="editorial-section">
+    <div class="container-reading faq-stack">
+      {faqList.map((item, index) => <details class="faq-item" open={index === 0} data-reveal><summary>{item.question}</summary><div class="faq-answer"><p>{item.answer}</p></div></details>)}
+      <details class="faq-item" data-reveal><summary>駐車場はありますか？</summary><div class="faq-answer"><p>A〜Dの4駐車場があり、現在の案内では合計593台です。普通車は30分100円で、上限料金はありません。詳しくは<a href="/parking/" style="color:#9b3a31;text-decoration:underline">駐車場ページ</a>をご覧ください。</p></div></details>
+      <details class="faq-item" data-reveal><summary>犬と一緒に散歩できますか？</summary><div class="faq-answer"><p>園内の現地表示と新潟市の公園利用ルールに従い、リードをつけ、排せつ物を必ず持ち帰ってください。神社や建物内はペット同伴不可の場合があります。</p></div></details>
+      <details class="faq-item" data-reveal><summary>このサイトは公式ですか？</summary><div class="faq-answer"><p>いいえ。{site.domain} は白山公園と周辺を案内する非公式の観光ガイドです。行政、白山神社、燕喜館、文化施設とは関係ありません。</p></div></details>
+    </div>
+  </section>
+</BaseLayout>

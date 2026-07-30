@@ -1,0 +1,22 @@
+---
+interface Props { kicker: string; title: string; description: string; image?: string; imageAlt?: string; }
+const { kicker, title, description, image, imageAlt = '' } = Astro.props;
+---
+<section class:list={['page-hero', image && 'has-image']}>
+  <div class="container-wide page-hero-grid">
+    <div class="page-hero-copy" data-reveal>
+      <p class="kicker">{kicker}</p>
+      <h1 class="display-title">{title}</h1>
+      <p class="lead">{description}</p>
+    </div>
+    {image && <figure class="page-hero-image image-frame" data-reveal><img src={image} alt={imageAlt} width="1280" height="900" fetchpriority="high" /></figure>}
+  </div>
+</section>
+<style>
+  .page-hero { padding-block: clamp(52px,8vw,98px); }
+  .page-hero-grid { display: grid; grid-template-columns: minmax(0,.9fr) minmax(420px,1.1fr); align-items: center; gap: clamp(2.5rem,7vw,7rem); }
+  .page-hero-copy { max-width: 650px; }
+  .page-hero-copy .display-title { margin-top: 1rem; font-size: clamp(2.5rem,5vw,4.8rem); }
+  .page-hero-image { aspect-ratio: 4/3; }
+  @media (max-width: 900px) { .page-hero-grid { grid-template-columns: 1fr; } .page-hero-image { aspect-ratio: 16/10; } }
+</style>

@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import ParkMap from '../../components/ParkMap.astro';
+import Notice from '../../components/Notice.astro';
+---
+<BaseLayout title="白山公園へのアクセス｜新潟駅からバス・白山駅から徒歩" description="新潟駅から白山公園へ向かうバス、JR白山駅からの徒歩、自動車、タクシーの目安と到着後の入口を案内します。">
+  <Breadcrumbs items={[{ label: 'アクセス' }]} />
+  <PageHero kicker="Access" title="街のまんなかへ、迷わず着く。" description="初めてなら新潟駅から「市役所前」行きの路線バスがわかりやすい方法。白山駅からは街並みを感じながら歩けます。" image="/images/autumn-walk.webp" imageAlt="白山公園空中庭園の歩道" />
+  <section class="editorial-section">
+    <div class="container-wide facts-grid">
+      <div class="fact-card" data-reveal><p class="fact-label">BUS</p><strong>市役所前から徒歩約3分</strong><p>新潟駅からの定番ルート。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">TRAIN + WALK</p><strong>JR白山駅から約20分</strong><p>住宅街や白山エリアを歩くルート。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">TAXI</p><strong>新潟駅から約8–15分</strong><p>交通状況により変わります。</p></div>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted">
+    <div class="container-wide content-grid">
+      <article class="editorial-copy" data-reveal>
+        <p class="kicker">From Niigata Station</p><h2>新潟駅から路線バス</h2>
+        <ol class="route-steps"><li><strong>新潟駅バスターミナルへ</strong><span>万代橋ラインなど「市役所前」を通る便を確認します。</span></li><li><strong>「市役所前」で下車</strong><span>所要時間はおおむね16分前後。道路状況で変動します。</span></li><li><strong>白山公園へ徒歩約3分</strong><span>市役所側から空中庭園・歴史庭園へ入れます。</span></li></ol>
+        <h3>観光循環バス</h3><p>運行日と時間が合えば「白山公園前」で下車できる観光循環バスも便利です。ダイヤや運賃は改定されるため、当日の案内表示を確認してください。</p>
+      </article>
+      <aside class="data-card sticky-aside" data-reveal><div class="data-card-header"><h2>所在地</h2></div><div class="data-card-body"><table class="info-table"><tbody><tr><th>公園</th><td>新潟県新潟市中央区一番堀通町地先</td></tr><tr><th>緯度</th><td>37.9144137</td></tr><tr><th>経度</th><td>139.0393424</td></tr><tr><th>入園</th><td>屋外区域は無料</td></tr></tbody></table><p style="margin:1rem 0 0;color:rgba(31,41,37,.58);font-size:.75rem;line-height:1.8">地図アプリでは「白山公園 新潟」または「新潟市役所」を目的地にすると探しやすくなります。</p></div></aside>
+    </div>
+    <div class="container-wide location-map" data-reveal>
+      <div class="location-map-heading">
+        <p class="kicker">Location Map</p>
+        <h2 class="section-title">白山公園の位置を地図で確認</h2>
+        <p>新潟市役所、白山神社、文化施設との位置関係を確認してから、利用する交通手段と入口を選べます。</p>
+      </div>
+      <div class="google-map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3147.6854773952196!2d139.03934239999998!3d37.9144137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff4c9c040aa89bb%3A0x13b8e29a378202ee!2z55m95bGx5YWs5ZyS!5e0!3m2!1sja!2sjp!4v1785398751784!5m2!1sja!2sjp"
+          width="600"
+          height="450"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="白山公園のGoogleマップ"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+  <section class="editorial-section">
+    <div class="container-wide content-grid is-reversed">
+      <ParkMap />
+      <article class="editorial-copy" data-reveal><p class="kicker">Arriving at the Park</p><h2>入口は目的に合わせて</h2><h3>白山神社から</h3><p>参拝を先に済ませ、梅林からひょうたん池へ進む流れが自然です。</p><h3>市役所・文化施設側から</h3><p>バス利用、りゅーとぴあ、空中庭園を目的にする場合に便利です。</p><h3>燕喜館・蓮池側から</h3><p>伝統建築と静かな水辺を中心に歩きたいときに向きます。</p><a class="button-secondary" href="/courses/" style="margin-top:1rem">散歩コースを見る</a></article>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted"><div class="container-reading"><Notice><p>バスの乗り場、時刻、運賃は変更されることがあります。大雪、祭礼、マラソン、文化施設の催事日は交通規制や遅延にもご注意ください。</p></Notice></div></section>
+</BaseLayout>
+
+<style>
+  .location-map {
+    margin-top: clamp(3rem, 7vw, 6rem);
+  }
+
+  .location-map-heading {
+    max-width: 760px;
+    margin-bottom: 2rem;
+  }
+
+  .location-map-heading > p:last-child {
+    color: rgba(31, 41, 37, .64);
+    line-height: 1.9;
+  }
+
+  .google-map-frame {
+    overflow: hidden;
+    border: 1px solid rgba(23, 60, 50, .1);
+    border-radius: 28px;
+    background: #fbfaf6;
+    box-shadow: var(--shadow-card);
+  }
+
+  .google-map-frame iframe {
+    display: block;
+    width: 100%;
+    height: clamp(360px, 52vw, 620px);
+  }
+</style>

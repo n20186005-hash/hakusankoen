@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import ParkMap from '../../components/ParkMap.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+const highlights = [
+  {no:'01', title:'ひょうたん池', text:'島と橋、松、石灯籠が重なる、白山公園を象徴する水景。季節や時間によって水面の色が変わります。', image:'/images/hero.webp', alt:'桜が咲く白山公園のひょうたん池'},
+  {no:'02', title:'蓮池', text:'夏の朝に蓮が開く静かな池。燕喜館側とあわせて歩くと、庭園らしい落ち着いた時間を楽しめます。', image:'/images/summer-pond.webp', alt:'緑に包まれた白山公園の水辺'},
+  {no:'03', title:'美由岐賀岡', text:'明治天皇の巡幸にゆかりを持つ築山。園内の高低差と近代史を感じられる場所です。', image:'/images/garden-lantern.webp', alt:'石灯籠のある白山公園の庭園'},
+  {no:'04', title:'空中庭園', text:'りゅーとぴあ周辺の屋上へ広がる現代の庭。曲線的な園路、芝生、水景が歴史庭園と街をつなぎます。', image:'/images/air-garden-sakura.webp', alt:'桜の季節の白山公園空中庭園'},
+  {no:'05', title:'白山神社', text:'公園に隣接する新潟総鎮守。参拝から庭園散歩へ、ひと続きの時間として巡るのがおすすめです。', image:'/images/hakusan-shrine.webp', alt:'新潟白山神社の境内'},
+  {no:'06', title:'燕喜館', text:'明治期の商家の座敷を移築した文化施設。建具、座敷、庭の眺めに、かつての新潟の暮らしが残ります。', image:'/images/enkikan.webp', alt:'白山公園内の燕喜館'},
+];
+---
+<BaseLayout title="白山公園の見どころ｜池・空中庭園・白山神社・燕喜館" description="新潟・白山公園で見逃したくない6つの見どころを、写真と園内マップで紹介します。">
+  <Breadcrumbs items={[{ label: '見どころ' }]} />
+  <PageHero kicker="Highlights" title="水辺から神社へ。景色がつながる。" description="歴史庭園、白山神社、燕喜館、現代の空中庭園。異なる時代の風景を、歩いてつなげるのが白山公園の魅力です。" image="/images/hero.webp" imageAlt="桜の白山公園ひょうたん池" />
+  <section class="editorial-section is-tinted">
+    <div class="container-wide">
+      <SectionHeading kicker="Six Places" title="はじめてなら、この6か所へ" description="園内は広すぎず、主要な見どころを60〜90分ほどで巡れます。花の時期は立ち止まる時間を少し長めに。" />
+      <div class="card-grid" style="margin-top:2.5rem">
+        {highlights.map((item) => <article class="editorial-card" data-reveal>
+          <figure class="image-frame"><img src={item.image} alt={item.alt} width="1280" height="900" loading="lazy" /></figure>
+          <div class="editorial-card-body"><p class="eyebrow">{item.no} · HIGHLIGHT</p><h2>{item.title}</h2><p>{item.text}</p></div>
+        </article>)}
+      </div>
+    </div>
+  </section>
+  <section class="editorial-section">
+    <div class="container-wide">
+      <SectionHeading kicker="Park Map" title="位置関係を見てから歩く" description="白山神社側から歴史庭園へ入り、蓮池と燕喜館を経て空中庭園へ向かうと、自然な順路になります。" />
+      <div style="margin-top:2.5rem"><ParkMap /></div>
+    </div>
+  </section>
+</BaseLayout>

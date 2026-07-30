@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import Notice from '../../components/Notice.astro';
+import { gourmetList } from '../../data/site';
+---
+<BaseLayout title="白山公園周辺のランチ・カフェ｜新潟らしい味を歩く" description="白山公園の園内休憩、近いカフェ、生姜醤油ラーメン、新潟あっさり醤油、タレかつ丼、古町の甘味を距離別に紹介します。">
+  <Breadcrumbs items={[{ label: '周辺グルメ' }]} />
+  <PageHero kicker="Food & Café" title="散歩の続きに、新潟の味を。" description="園内で抹茶をいただく短い休憩から、古町まで歩いて名物料理を味わう昼食まで。時間と気分に合わせて選びます。" image="/images/enkikan.webp" imageAlt="白山公園内の燕喜館" />
+  <section class="editorial-section">
+    <div class="container-wide facts-grid">
+      <div class="fact-card" data-reveal><p class="fact-label">IN THE PARK</p><strong>燕喜館</strong><p>提供日に抹茶と菓子でひと休み。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">3–10 MIN</p><strong>文化施設・東堀</strong><p>カフェや生姜醤油ラーメンへ。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">15–22 MIN</p><strong>古町</strong><p>タレかつ丼、喫茶、老舗の味。</p></div>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted">
+    <div class="container-wide">
+      <div class="card-grid two-up">
+        {gourmetList.map((item, index) => <article class="fact-card" data-reveal>
+          <p class="fact-label">{String(index + 1).padStart(2,'0')} · {item.walk}</p>
+          <strong>{item.name}</strong>
+          <p style="color:#9b3a31;font-weight:700">{item.category}</p>
+          <p>{item.description}</p>
+          <p style="border-top:1px solid rgba(23,60,50,.1);padding-top:.75rem;margin-top:.9rem">{item.note}</p>
+        </article>)}
+      </div>
+    </div>
+  </section>
+  <section class="editorial-section">
+    <div class="container-reading content-grid">
+      <article class="editorial-copy" data-reveal><p class="kicker">Lunch Plans</p><h2>時間で選ぶ食事プラン</h2><h3>30分以内：公園を離れない</h3><p>燕喜館の提供日を確認するか、りゅーとぴあのカフェで短く休憩。公演前後や雨の日にも使いやすい選択です。</p><h3>60〜90分：東堀・西堀へ</h3><p>生姜醤油ラーメンや新潟あっさり醤油ラーメンを目的に歩きます。小規模店は行列や売切れを見込んでください。</p><h3>2時間以上：古町まち歩き</h3><p>タレかつ丼、甘味、喫茶を組み合わせ、商店街と路地を散策。公園から街へ続く半日コースになります。</p></article>
+      <aside class="paper-panel sticky-aside" style="border-radius:24px;padding:1.6rem" data-reveal><h2 class="serif" style="margin:0 0 1rem;color:#173c32;font-size:1.55rem;font-weight:500">新潟で味わいたいもの</h2><ul class="tip-list"><li>生姜醤油ラーメン</li><li>新潟あっさり醤油ラーメン</li><li>タレかつ丼</li><li>笹だんご・和菓子</li><li>米菓と日本茶</li></ul></aside>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted"><div class="container-reading"><Notice><p>飲食店の営業時間、定休日、価格、提供内容は変更されます。個人店は臨時休業や売切れもあるため、訪問当日に店頭情報をご確認ください。</p></Notice></div></section>
+</BaseLayout>

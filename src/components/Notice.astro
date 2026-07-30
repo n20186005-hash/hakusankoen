@@ -1,0 +1,18 @@
+---
+import Icon from './Icon.astro';
+interface Props { title?: string; tone?: 'info' | 'season'; }
+const { title = 'お出かけ前に', tone = 'info' } = Astro.props;
+---
+<aside class:list={['notice', `tone-${tone}`]} data-reveal>
+  <span class="notice-icon"><Icon name={tone === 'season' ? 'leaf' : 'info'} size={21}/></span>
+  <div><strong>{title}</strong><div class="notice-body"><slot /></div></div>
+</aside>
+<style>
+  .notice { display: grid; grid-template-columns: auto 1fr; gap: 1rem; border: 1px solid rgba(23,60,50,.12); border-radius: 20px; padding: 1.25rem 1.35rem; background: rgba(255,255,255,.55); }
+  .tone-season { background: rgba(215,170,173,.12); border-color: rgba(155,58,49,.15); }
+  .notice-icon { display: grid; width: 38px; height: 38px; place-items: center; border-radius: 50%; background: #173c32; color: #fff; }
+  .tone-season .notice-icon { background: #9b3a31; }
+  .notice strong { display: block; margin-bottom: .25rem; color: #173c32; font-size: .88rem; letter-spacing: .08em; }
+  .notice-body { color: rgba(31,41,37,.68); font-size: .82rem; line-height: 1.8; }
+  .notice-body :global(p) { margin: 0; }
+</style>

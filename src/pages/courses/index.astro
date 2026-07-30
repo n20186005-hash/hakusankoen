@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import ParkMap from '../../components/ParkMap.astro';
+import Notice from '../../components/Notice.astro';
+import { courseList } from '../../data/site';
+---
+<BaseLayout title="白山公園の散歩コース｜30分・60分・120分" description="時間に合わせて選べる白山公園の散歩コース。水辺の30分、白山神社を含む60分、燕喜館と空中庭園を巡る120分を案内します。">
+  <Breadcrumbs items={[{ label: '散歩コース' }]} />
+  <PageHero kicker="Walking Courses" title="今日の歩幅に、ちょうどいい道を。" description="少しだけ水辺を歩く日も、神社と文化施設までゆっくり巡る日も。滞在時間から選べる三つのモデルコースです。" image="/images/autumn-walk.webp" imageAlt="白山公園の曲線的な散歩道" />
+  <section class="editorial-section">
+    <div class="container-wide card-grid">
+      {courseList.map((course, index) => <article class="editorial-card" data-reveal>
+        <div class="editorial-card-body">
+          <p class="eyebrow">COURSE {String(index + 1).padStart(2,'0')}</p>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:1rem"><h2>{course.title}</h2><span class="pill">{course.duration}</span></div>
+          <p>{course.summary}</p>
+          <ol class="route-steps">{course.stops.map((stop) => <li><strong>{stop}</strong></li>)}</ol>
+          <p style="border-top:1px solid rgba(23,60,50,.1);padding-top:1rem;margin-top:.5rem;color:#173c32;font-weight:700">歩行目安 {course.pace}</p>
+        </div>
+      </article>)}
+    </div>
+  </section>
+  <section class="editorial-section is-tinted">
+    <div class="container-wide content-grid is-reversed">
+      <ParkMap />
+      <article class="editorial-copy" data-reveal><p class="kicker">How to Choose</p><h2>迷ったら60分コース</h2><p>白山公園の歴史庭園と白山神社の両方を無理なく巡れます。桜や紅葉の時期は、写真を撮る時間として30分ほど追加するとゆったり過ごせます。</p><h3>30分が向く人</h3><p>公演前の短い時間、子どもと水辺だけ歩きたい人、雨の合間の散策に。</p><h3>120分が向く人</h3><p>燕喜館の見学、空中庭園、カフェ休憩まで含め、街の文化を楽しみたい人に。</p></article>
+    </div>
+  </section>
+  <section class="editorial-section">
+    <div class="container-reading content-grid">
+      <article class="editorial-copy" data-reveal><p class="kicker">Comfortable Walk</p><h2>無理をしない歩き方</h2><ul class="tip-list"><li>歴史庭園には細い園路や段差があります</li><li>雨や雪の後は石畳と木道が滑りやすくなります</li><li>夏は朝か夕方を選び、飲み物を携帯してください</li><li>ベビーカーや車いすは文化施設側の平坦な動線が使いやすいです</li><li>夜は照明の少ない場所へ入らず、施設閉館時間を確認してください</li></ul></article>
+      <figure class="image-frame sticky-aside" data-reveal><img src="/images/garden-lantern.webp" alt="白山公園の園路と石灯籠" width="1280" height="900" loading="lazy" /></figure>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted"><div class="container-reading"><Notice><p>表示距離と時間は一般的な歩行速度による目安です。混雑、立ち止まり、施設見学、積雪などによって変わります。</p></Notice></div></section>
+</BaseLayout>
