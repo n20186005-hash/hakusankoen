@@ -1,0 +1,63 @@
+---
+import { audienceRoutes, generalRoutes } from '../data/site';
+---
+
+<section class="section-space visitor-routes">
+  <div class="container-wide">
+    <div class="vr-head">
+      <p class="kicker">Walking Plans</p>
+      <h2 class="section-title">訪問者のタイプ別モデルコース</h2>
+      <p class="vr-sub">目的や体力、一緒に行く方に合わせて、無理なく巡るための三つの視点です。</p>
+    </div>
+
+    <div class="card-grid vr-audience">
+      {audienceRoutes.map((r) => (
+        <article class="data-card">
+          <div class="data-card-header"><h3>{r.audience}</h3></div>
+          <div class="data-card-body">
+            <p class="vr-focus">{r.focus}</p>
+            <p class="vr-duration"><span>目安</span>{r.duration}</p>
+            <ol class="route-steps">
+              {r.steps.map((s) => (
+                <li><strong>{s.name}</strong><span>{s.note}</span></li>
+              ))}
+            </ol>
+            <p class="vr-tip">{r.tip}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="vr-general">
+      <h3 class="vr-general-title">共通のおすすめコース</h3>
+      <div class="card-grid two-up">
+        {generalRoutes.map((g) => (
+          <article class="data-card">
+            <div class="data-card-header"><h3>{g.title}</h3></div>
+            <div class="data-card-body">
+              <p class="vr-focus">{g.summary}</p>
+              <ol class="route-steps">
+                {g.steps.map((s) => (
+                  <li><strong>{s.name}</strong><span>{s.note}</span></li>
+                ))}
+              </ol>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .visitor-routes { background: #fbfaf6; }
+  .vr-head { max-width: 760px; margin-bottom: 2.4rem; }
+  .vr-sub { margin-top: .9rem; color: rgba(31,41,37,.66); }
+  .vr-audience { grid-template-columns: repeat(3, 1fr); margin-bottom: 3rem; }
+  .vr-focus { margin: 0 0 1rem; color: rgba(31,41,37,.72); font-size: .86rem; line-height: 1.85; }
+  .vr-duration { display: inline-flex; align-items: baseline; gap: .2rem; margin: 0 0 1rem; font-family: var(--font-serif); font-size: 1.05rem; color: var(--color-moss); }
+  .vr-duration span { color: var(--color-vermillion); font-weight: 700; font-size: .64rem; letter-spacing: .1em; margin-right: .35rem; }
+  .vr-tip { margin: 1rem 0 0; padding: .9rem 1rem; border-left: 3px solid var(--color-vermillion); background: rgba(155,58,49,.06); color: rgba(31,41,37,.7); font-size: .78rem; line-height: 1.8; border-radius: 0 10px 10px 0; }
+  .vr-general-title { margin: 0 0 1.4rem; color: var(--color-moss); font-family: var(--font-serif); font-size: clamp(1.4rem,3vw,2rem); font-weight: 500; }
+  @media (max-width: 940px) { .vr-audience { grid-template-columns: 1fr; } }
+</style>

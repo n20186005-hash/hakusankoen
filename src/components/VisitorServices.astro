@@ -1,0 +1,30 @@
+---
+import { facilities } from '../data/site';
+---
+
+<section class="section-space visitor-services">
+  <div class="container-wide">
+    <div class="vs-head">
+      <p class="kicker">Visitor Services</p>
+      <h2 class="section-title">訪客サービスと周辺施設</h2>
+      <p class="vs-sub">特定の店名は挙げず、訪問時の目安となる施設の「タイプ」をまとめました。営業日や料金は都度ご確認ください。</p>
+    </div>
+    <div class="card-grid vs-grid">
+      {facilities.map((f) => (
+        <article class="fact-card">
+          <p class="fact-label">{f.type}</p>
+          <p>{f.body}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .visitor-services { background: #f0ece3; }
+  .vs-head { max-width: 760px; margin-bottom: 2.4rem; }
+  .vs-sub { margin-top: .9rem; color: rgba(31,41,37,.66); }
+  .vs-grid { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 940px) { .vs-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .vs-grid { grid-template-columns: 1fr; } }
+</style>

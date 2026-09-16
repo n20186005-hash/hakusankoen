@@ -9,8 +9,47 @@ const lots = [
   {name:'C駐車場', spaces:'188台', fit:'りゅーとぴあ・県民会館'},
   {name:'D駐車場', spaces:'271台', fit:'文化施設・空中庭園'},
 ];
+
+const parkingFaq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '白山公園の駐車場は有料ですか？料金はいくらですか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'はい、公園周辺にA〜Dの市営駐車場があり、普通車は30分ごとに100円です。最大料金（上限）の設定はありません。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '駐車場は何台利用できますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A〜D駐車場を合わせて計593台です。障がい者用区画は全体で9区画設けられています。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '入庫・出庫はいつできますか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '入場（入庫）は8:00〜23:00、出庫は24時間可能です。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '混雑しやすい日はいつですか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '桜が満開の土日、白山神社の春祭・夏祭・初詣、りゅーとぴあや県民会館の大型公演日、降雪時などが混雑しやすいです。このような日は早めの到着か、新潟駅からのバス利用がおすすめです。',
+      },
+    },
+  ],
+};
 ---
-<BaseLayout title="白山公園駐車場｜料金・台数・利用時間" description="白山公園A〜D駐車場の料金、合計593台、入場時間、支払い時の注意と混雑しやすい日をまとめています。">
+<BaseLayout title="白山公園駐車場｜料金（30分100円）・台数（計593台）・混雑日" description="白山公園A〜D駐車場の料金、合計593台、入場時間、支払い時の注意と混雑しやすい日をまとめています。" schema={parkingFaq}>
   <Breadcrumbs items={[{ label: '駐車場' }]} />
   <PageHero kicker="Parking" title="車で来る前に、料金と入口を確認。" description="白山公園周辺にはA〜Dの4駐車場があります。目的地に近い区画を選び、桜や催事の日は早めの到着を。" image="/images/air-garden-sakura.webp" imageAlt="白山公園の空中庭園" />
   <section class="editorial-section">

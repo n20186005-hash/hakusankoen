@@ -1,0 +1,346 @@
+---
+import { weather } from '../data/site';
+---
+
+<section class="section-space-sm weather-section" aria-labelledby="weather-title">
+  <div class="container-wide">
+    <div class="weather-head">
+      <p class="kicker">Live Weather</p>
+      <h2 id="weather-title" class="section-title">白山公園の天気</h2>
+      <p class="weather-sub">訪問前の目安に。現在の空模様と、これから一週間の傾向をまとめました。</p>
+    </div>
+
+    <div class="weather-card" id="weather-card" data-state="loading">
+      <div class="weather-now">
+        <div class="weather-now-icon" id="wx-now-icon" aria-hidden="true"></div>
+        <div class="weather-now-temp"><span id="wx-temp">--</span><span class="wx-unit">°C</span><span class="wx-feel" id="wx-feel"></span></div>
+        <div class="weather-now-label" id="wx-label">読み込み中…</div>
+      </div>
+      <dl class="weather-meta">
+        <div><dt>湿度</dt><dd><span id="wx-humidity">--</span><span class="wx-unit">%</span></dd></div>
+        <div><dt>風速</dt><dd><span id="wx-wind">--</span><span class="wx-unit">km/h</span></dd></div>
+        <div><dt>紫外線</dt><dd><span id="wx-uv">--</span><span class="wx-unit" id="wx-uv-label"></span></dd></div>
+        <div><dt>降水量</dt><dd><span id="wx-precip">--</span><span class="wx-unit">mm</span></dd></div>
+      </dl>
+
+      <div class="weather-advice" id="wx-advice" hidden>
+        <div class="wx-risk" id="wx-risk" hidden></div>
+        <div class="wx-advice-grid">
+          <section class="wx-advice-col">
+            <h3>服装の目安</h3>
+            <ul id="wx-outfit"></ul>
+          </section>
+          <section class="wx-advice-col">
+            <h3>過ごし方の目安</h3>
+            <ul id="wx-activity"></ul>
+          </section>
+          <section class="wx-advice-col">
+            <h3>持ち物</h3>
+            <ul id="wx-items"></ul>
+          </section>
+        </div>
+      </div>
+
+      <ul class="weather-forecast" id="wx-forecast" aria-label="週間天気予報"></ul>
+      <p class="weather-note" id="wx-note"></p>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="weather-config" is:inline>{JSON.stringify(weather)}</script>
+
+<script is:inline>
+(function () {
+  var cfg = JSON.parse(document.getElementById('weather-config').textContent);
+  var card = document.getElementById('weather-card');
+  var WEEK = ['日', '月', '火', '水', '木', '金', '土'];
+
+  var CODE = {
+    0: ['sun', '晴れ'], 1: ['sun', '概ね晴れ'], 2: ['partly', '一部曇り'], 3: ['cloud', '曇り'],
+    45: ['fog', '霧'], 48: ['fog', '霧氷の霧'],
+    51: ['drizzle', '弱い霧雨'], 53: ['drizzle', '霧雨'], 55: ['drizzle', '強い霧雨'],
+    56: ['drizzle', '凍る霧雨'], 57: ['drizzle', '凍る霧雨'],
+    61: ['rain', '弱い雨'], 63: ['rain', '雨'], 65: ['rain', '強い雨'],
+    66: ['rain', '凍る雨'], 67: ['rain', '凍る雨'],
+    71: ['snow', '弱い雪'], 73: ['snow', '雪'], 75: ['snow', '強い雪'], 77: ['snow', '雪粒'],
+    80: ['showers', 'にわか雨'], 81: ['showers', 'にわか雨'], 82: ['showers', '強いにわか雨'],
+    85: ['snow', 'にわか雪'], 86: ['snow', '強いにわか雪'],
+    95: ['thunder', '雷雨'], 96: ['thunder', '雷雨と雹'], 99: ['thunder', '雷雨と雹']
+  };
+
+  function svg(group) {
+    var s = '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">';
+    if (group === 'sun') {
+      s += '<circle cx="12" cy="12" r="4"/>';
+      s += '<path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>';
+    } else if (group === 'partly') {
+      s += '<circle cx="8" cy="8" r="3"/>';
+      s += '<path d="M8 2.5v1.5M2.5 8H4M4 4l1 1M11.5 4l-1 1"/>';
+      s += '<path d="M9 19a3.5 3.5 0 0 1 .4-7 4.5 4.5 0 0 1 8.6 1.2A3 3 0 0 1 17 19z"/>';
+    } else if (group === 'cloud' || group === 'fog') {
+      s += '<path d="M7 19a4 4 0 0 1 .5-7.9 5 5 0 0 1 9.6 1.4A3.5 3.5 0 0 1 17 19z"/>';
+      if (group === 'fog') s += '<path d="M5 21h14M6 23h12"/>';
+    } else {
+      s += '<path d="M7 19a4 4 0 0 1 .5-7.9 5 5 0 0 1 9.6 1.4A3.5 3.5 0 0 1 17 19z"/>';
+      if (group === 'drizzle') s += '<path d="M9 21l-.5 1.5M13 21l-.5 1.5M17 21l-.5 1.5"/>';
+      else if (group === 'rain') s += '<path d="M9 21l-1 2M13 21l-1 2M17 21l-1 2"/>';
+      else if (group === 'showers') s += '<path d="M8 21l-1.2 2.4M12 21l-1.2 2.4M16 21l-1.2 2.4"/>';
+      else if (group === 'snow') s += '<path d="M12 20v3M12 21l-1.6-1.2M12 21l1.6-1.2M10.5 22.5h3"/>';
+      else if (group === 'thunder') s += '<path d="M12 20l-2 3h3l-2 3"/>';
+    }
+    return s + '</svg>';
+  }
+
+  function map(code) { return CODE[code] || ['cloud', '---']; }
+  function weekday(d) { return WEEK[new Date(d + 'T00:00:00').getDay()]; }
+  function setText(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
+  function inGroups(g, list) { return list.indexOf(g) !== -1; }
+
+  // km/h -> Beaufort wind level
+  function windLevel(kmh) {
+    if (kmh < 1) return 0;
+    if (kmh < 6) return 1;
+    if (kmh < 12) return 2;
+    if (kmh < 20) return 3;
+    if (kmh < 29) return 4;
+    if (kmh < 39) return 5;
+    if (kmh < 50) return 6;
+    if (kmh < 62) return 7;
+    if (kmh < 75) return 8;
+    if (kmh < 89) return 9;
+    if (kmh < 103) return 10;
+    return 11;
+  }
+
+  function uvLabel(uv) {
+    if (uv == null) return '';
+    if (uv < 3) return '弱';
+    if (uv < 6) return '中';
+    if (uv < 8) return '強';
+    if (uv < 11) return '非常強';
+    return '極強';
+  }
+
+  function currentUv(data) {
+    var h = data.hourly;
+    if (!h || !h.time || !h.uv_index || !data.current || !data.current.time) return null;
+    var hourKey = String(data.current.time).slice(0, 13); // 'YYYY-MM-DDTHH'
+    for (var i = 0; i < h.time.length; i++) {
+      if (String(h.time[i]).slice(0, 13) === hourKey) return h.uv_index[i];
+    }
+    return null;
+  }
+
+  // 条件触发 -> 可执行建议（白山公園は都市公園：海・山の特殊リスクは含めず、都市向けに最適化）
+  function buildAdvice(data) {
+    var cur = data.current;
+    var g = map(cur.weather_code)[0];
+    var code = cur.weather_code;
+    var maxT = data.daily.temperature_2m_max[0];
+    var minT = data.daily.temperature_2m_min[0];
+    var pop = data.daily.precipitation_probability_max[0];
+    var humidity = cur.relative_humidity_2m;
+    var windKmh = cur.wind_speed_10m;
+    var level = windLevel(windKmh);
+    var uv = currentUv(data);
+    var rainGroup = inGroups(g, ['rain', 'drizzle', 'showers', 'thunder']);
+
+    var risk = [], outfit = [], activity = [], items = [];
+
+    // ---- 风险提醒（有严重条件才显示）----
+    if (g === 'thunder') {
+      risk.push('雷を伴います。高い場所や木の下での待機は避け、燕喜館やりゅーとぴあなど屋内へ移動しましょう。屋外の乗り物は停止の可能性があります。');
+    }
+    if (code === 65 || code === 82) {
+      risk.push('雨が強くなっています。谷や低い場所は避け、無理な散策は控えましょう。遊覧船など屋外施設は運休の可能性があります。');
+    }
+    if (level >= 7) {
+      risk.push('強風が予想されます。看板や枝、水辺の岩場から離れてください。屋外の乗り物は運休の可能性大です。');
+    }
+    if (maxT >= 35) {
+      risk.push('気温が極めて高いです。直射日光を避け、こまめに水分を補給して休憩を。熱中症にご注意を。');
+    }
+    if (g === 'snow' && minT <= 1) {
+      risk.push('路面の凍結や積雪で滑りやすいです。無理な散策は避け、滑りにくい靴でお出かけを。');
+    }
+
+    // ---- 服装の目安 ----
+    if (maxT >= 32) outfit.push('気温が高いので、通気性の良い軽い服装がおすすめです。');
+    if (minT <= 10) outfit.push('気温が低いので、厚手の上着やマフラーがあると安心です。');
+    if ((maxT - minT) > 8) outfit.push('朝晩の温差が大きいので、羽織るものがあると調節しやすいです。');
+    if (uv != null && uv >= 5) outfit.push('紫外線が強いので、帽子や日傘があると日差しを避けられます。');
+    if (rainGroup) outfit.push('雨具（レインコートや防水靴）があると安心です。');
+    if (g === 'snow') outfit.push('滑りにくい靴と防寒着でお出かけを。');
+    if (outfit.length === 0) outfit.push('過ごしやすい服装でお出かけください。');
+
+    // ---- 過ごし方の目安 ----
+    if (g === 'sun') activity.push('晴れているので屋外の散策にぴったり。朝や夕方の光は写真映えします。');
+    else if (g === 'partly') activity.push('日差しと雲の間にあるので、屋外も快適に過ごせます。');
+    else if (g === 'cloud') activity.push('日差しが和らぎ、長時間の散策に向いています。');
+    else if (g === 'fog') activity.push('視界が悪く遠景は見えにくいですが、静かな雰囲気を楽しめます。');
+    else if (g === 'snow') activity.push('池の凍結や積雪で滑りやすいので、無理のない範囲で。');
+    else if (rainGroup) activity.push('屋外は体感が悪いので、燕喜館やりゅーとぴあなど屋内施設を組み込むと良いです。');
+    if (maxT >= 32) activity.push('正午の外出は避け、涼しい時間帯に散策を。');
+    if (level >= 5) activity.push('風の強い場所では帽子が飛びやすいのでご注意を。');
+
+    // ---- 持ち物 ----
+    if (pop != null && pop >= 60 && !rainGroup) items.push('折りたたみ傘（雨の可能性が高いので）');
+    if (g === 'drizzle') items.push('軽い雨用の折りたたみ傘');
+    if (inGroups(g, ['rain', 'showers', 'thunder'])) items.push('雨具（レインコート）。長い柄傘は風で逆さになるのでおすすめしません');
+    if (uv != null && uv >= 5) items.push('日焼け止め・サングラス・帽子');
+    if (maxT >= 32) items.push('十分な飲み物と暑さ対策グッズ');
+    if (minT <= 10) items.push('厚手の上着・マフラー');
+    if (g === 'snow') items.push('手袋・滑り止め靴');
+    if (humidity != null && humidity >= 80 && maxT >= 24) items.push('汗拭きタオル');
+    if (items.length === 0) items.push('特になし。軽装で問題ありません。');
+
+    return { risk: risk, outfit: outfit, activity: activity, items: items };
+  }
+
+  function fillList(id, arr) {
+    document.getElementById(id).innerHTML = arr.map(function (t) { return '<li>' + t + '</li>'; }).join('');
+  }
+
+  function render(data) {
+    var cur = data.current;
+    var m = map(cur.weather_code);
+    document.getElementById('wx-now-icon').innerHTML = svg(m[0]);
+    setText('wx-temp', Math.round(cur.temperature_2m));
+    setText('wx-label', m[1]);
+    setText('wx-humidity', Math.round(cur.relative_humidity_2m));
+    setText('wx-wind', Math.round(cur.wind_speed_10m));
+    setText('wx-precip', Math.round(cur.precipitation || 0));
+
+    var uv = currentUv(data);
+    setText('wx-uv', uv == null ? '--' : Math.round(uv));
+    setText('wx-uv-label', uv == null ? '' : uvLabel(uv));
+
+    var feel = cur.apparent_temperature;
+    var feelEl = document.getElementById('wx-feel');
+    if (feel != null && Math.abs(feel - cur.temperature_2m) >= 2) {
+      feelEl.textContent = '（体感 ' + Math.round(feel) + '°）';
+    } else { feelEl.textContent = ''; }
+
+    // 建议面板
+    var advice = buildAdvice(data);
+    var riskEl = document.getElementById('wx-risk');
+    if (advice.risk.length) {
+      riskEl.hidden = false;
+      riskEl.innerHTML = '<strong>ご注意</strong>' + advice.risk.map(function (t) { return '<p>' + t + '</p>'; }).join('');
+    } else {
+      riskEl.hidden = true;
+      riskEl.innerHTML = '';
+    }
+    fillList('wx-outfit', advice.outfit);
+    fillList('wx-activity', advice.activity);
+    fillList('wx-items', advice.items);
+    document.getElementById('wx-advice').hidden = false;
+
+    // 7日予報
+    var daily = data.daily;
+    var html = '';
+    for (var i = 0; i < daily.time.length; i++) {
+      var dm = map(daily.weather_code[i]);
+      var label = (i === 0 ? '今日' : weekday(daily.time[i]) + '曜');
+      var pop = (daily.precipitation_probability_max && daily.precipitation_probability_max[i] != null)
+        ? daily.precipitation_probability_max[i] : '--';
+      html += '<li>' +
+        '<span class="wf-day">' + label + '</span>' +
+        '<span class="wf-icon">' + svg(dm[0]) + '</span>' +
+        '<span class="wf-label">' + dm[1] + '</span>' +
+        '<span class="wf-temp"><b>' + Math.round(daily.temperature_2m_max[i]) + '°</b> / ' + Math.round(daily.temperature_2m_min[i]) + '°</span>' +
+        '<span class="wf-pop">雨 ' + pop + '%</span>' +
+        '</li>';
+    }
+    document.getElementById('wx-forecast').innerHTML = html;
+  }
+
+  async function load() {
+    var data = null;
+    try {
+      var r = await fetch(cfg.endpoint, { headers: { accept: 'application/json' } });
+      if (r.ok) data = await r.json();
+    } catch (e) {}
+    if (!data) {
+      try {
+        var r2 = await fetch(cfg.direct);
+        if (r2.ok) { data = await r2.json(); setText('wx-note', '最新の気象データを表示しています。'); }
+      } catch (e2) {}
+    }
+    if (!data) {
+      card.dataset.state = 'error';
+      setText('wx-label', '現在、天気を取得できません。しばらくしてから再度ご確認ください。');
+      return;
+    }
+    render(data);
+    card.dataset.state = 'ready';
+  }
+
+  load();
+})();
+</script>
+
+<style>
+  .weather-section { background: linear-gradient(180deg, #fbfaf6, #f0ece3); }
+  .weather-head { max-width: 720px; margin-bottom: 2.2rem; }
+  .weather-sub { margin-top: .9rem; color: rgba(31,41,37,.68); }
+  .weather-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "now meta"
+      "advice advice"
+      "forecast forecast"
+      "note note";
+    gap: 1.5rem 2rem;
+    border: 1px solid rgba(23,60,50,.12);
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: var(--shadow-card);
+    padding: clamp(1.5rem, 4vw, 2.4rem);
+  }
+  .weather-now { grid-area: now; display: flex; flex-direction: column; align-items: center; min-width: 130px; }
+  .weather-now-icon { width: 64px; height: 64px; color: var(--color-vermillion); }
+  .weather-now-temp { font-family: var(--font-serif); font-size: clamp(2.4rem, 5vw, 3.4rem); font-weight: 500; color: var(--color-moss); line-height: 1; margin-top: .3rem; }
+  .wx-unit { font-size: .9rem; color: rgba(31,41,37,.5); margin-left: .15rem; }
+  .wx-feel { display: block; font-size: .72rem; color: rgba(31,41,37,.5); margin-top: .25rem; font-family: var(--font-sans); }
+  .weather-now-label { margin-top: .5rem; color: rgba(31,41,37,.7); font-size: .9rem; }
+  .weather-meta { grid-area: meta; display: flex; flex-wrap: wrap; gap: 1.2rem 2.2rem; margin: 0; }
+  .weather-meta div { display: flex; flex-direction: column; }
+  .weather-meta dt { color: var(--color-vermillion); font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .weather-meta dd { margin: .25rem 0 0; font-family: var(--font-serif); font-size: 1.5rem; font-weight: 500; color: var(--color-moss); }
+  .weather-meta dd .wx-unit { font-size: .7rem; }
+
+  .weather-advice { grid-area: advice; border-top: 1px solid rgba(23,60,50,.1); margin-top: .4rem; padding-top: 1.4rem; }
+  .wx-risk { background: rgba(155,58,49,.09); border: 1px solid rgba(155,58,49,.32); border-left: 4px solid var(--color-vermillion); border-radius: 12px; padding: .9rem 1.1rem; margin-bottom: 1.4rem; color: #7a2c25; font-size: .84rem; line-height: 1.85; }
+  .wx-risk strong { display: block; color: var(--color-vermillion); font-weight: 700; margin-bottom: .25rem; letter-spacing: .04em; }
+  .wx-risk p { margin: .3rem 0 0; }
+  .wx-advice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  .wx-advice-col h3 { margin: 0 0 .7rem; font-family: var(--font-serif); font-size: .98rem; color: var(--color-moss); font-weight: 500; }
+  .wx-advice-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: .6rem; }
+  .wx-advice-col li { position: relative; padding-left: 1.4rem; font-size: .8rem; line-height: 1.7; color: rgba(31,41,37,.78); }
+  .wx-advice-col li::before { content: ''; position: absolute; left: 0; top: .55rem; width: .55rem; height: .55rem; border-radius: 50%; background: var(--color-vermillion); opacity: .8; }
+
+  .weather-forecast {
+    grid-area: forecast;
+    list-style: none; margin: 0; padding: 1.4rem 0 0;
+    border-top: 1px solid rgba(23,60,50,.1);
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: .6rem;
+  }
+  .weather-forecast li { display: flex; flex-direction: column; align-items: center; gap: .35rem; text-align: center; }
+  .wf-day { color: var(--color-moss); font-weight: 700; font-size: .72rem; }
+  .wf-icon { width: 30px; height: 30px; color: var(--color-vermillion); }
+  .wf-label { font-size: .62rem; color: rgba(31,41,37,.6); line-height: 1.3; min-height: 1.8em; }
+  .wf-temp { font-size: .72rem; color: rgba(31,41,37,.78); }
+  .wf-temp b { color: var(--color-moss); }
+  .wf-pop { font-size: .6rem; color: rgba(31,41,37,.45); }
+  .weather-note { grid-area: note; margin: 0; font-size: .72rem; color: rgba(31,41,37,.5); }
+  .weather-card[data-state="loading"] .weather-now-label { color: rgba(31,41,37,.4); }
+  @media (max-width: 880px) {
+    .wx-advice-grid { grid-template-columns: 1fr; gap: 1.3rem; }
+  }
+  @media (max-width: 760px) {
+    .weather-card { grid-template-columns: 1fr; grid-template-areas: "now" "meta" "advice" "forecast" "note"; }
+    .weather-forecast { grid-template-columns: repeat(4, 1fr); row-gap: 1rem; }
+  }
+</style>

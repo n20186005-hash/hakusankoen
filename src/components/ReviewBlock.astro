@@ -1,0 +1,58 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+const rating = site.rating;
+const mapsUrl = site.mapsShareUrl;
+const fullStars = Math.round(rating.score);
+---
+<section class="review-block section-space-sm" id="reviews" data-reveal>
+  <div class="container-wide review-inner">
+    <div class="review-head">
+      <p class="kicker">Visitor Reviews</p>
+      <h2 class="section-title">ご利用者の評価</h2>
+    </div>
+    <div class="review-card paper-panel">
+      <div class="review-score">
+        <span class="review-number serif">{rating.score.toFixed(1)}</span>
+        <div class="review-meta">
+          <div class="review-stars" aria-label={`Googleマップ評価 ${rating.score} / 5`}>
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Icon name="star" size={20} class={i < fullStars ? 'star-on' : 'star-off'} />
+            ))}
+          </div>
+          <span class="review-count">{rating.count.toLocaleString('ja-JP')}件の評価</span>
+        </div>
+      </div>
+      <p class="review-source-line">
+        评分与评价数同步自谷歌地图（Google Maps）用户评价 · {rating.syncDate} · <a href={mapsUrl} target="_blank" rel="noopener noreferrer">点击查看谷歌地图全部评价↗</a>
+      </p>
+      <p class="review-note">
+        同步自 Google 地图用户评价，同步时间 {rating.syncDate}；版权归原作者与 Google 地图所有
+      </p>
+      <a class="button-primary review-btn" href={mapsUrl} target="_blank" rel="noopener noreferrer">
+        在谷歌地图查看全部评价 <Icon name="external" size={16} />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .review-block { background: #f0ece3; }
+  .review-inner { max-width: 880px; }
+  .review-head { margin-bottom: 1.6rem; }
+  .review-head .section-title { margin-top: .6rem; }
+  .review-card { border-radius: 28px; padding: clamp(1.8rem, 4vw, 3rem); display: grid; gap: 1.2rem; }
+  .review-score { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+  .review-number { color: var(--color-moss); font-size: clamp(2.6rem, 6vw, 3.8rem); line-height: 1; font-weight: 500; }
+  .review-meta { display: grid; gap: .35rem; }
+  .review-stars { display: inline-flex; gap: .15rem; }
+  .review-stars :global(svg) { stroke: none; }
+  .review-stars :global(svg.star-on path) { fill: var(--color-gold); }
+  .review-stars :global(svg.star-off path) { fill: #d9d3c6; }
+  .review-count { color: rgba(31, 41, 37, .62); font-size: .8rem; }
+  .review-source-line { margin: 0; font-size: .82rem; line-height: 1.9; color: rgba(31, 41, 37, .74); }
+  .review-source-line a { color: var(--color-vermillion); text-decoration: underline; text-underline-offset: .2em; }
+  .review-note { margin: 0; font-size: .72rem; line-height: 1.85; color: rgba(31, 41, 37, .5); }
+  .review-btn { justify-self: start; }
+</style>

@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+
+const rating = site.rating;
+const mapsUrl = site.mapsShareUrl;
+---
+<section class="sources-section section-space-sm" id="sources" data-reveal>
+  <div class="container-wide sources-inner paper-panel">
+    <div class="sources-head">
+      <p class="kicker">Sources</p>
+      <h2 class="section-title">资料来源</h2>
+    </div>
+    <ul class="sources-list">
+      <li>
+        <span class="source-tag">評価（Google Maps）</span>
+        <p class="source-text">評価 · 同步时间 {rating.syncDate}</p>
+        <p class="source-note">同步自 Google 地图用户评价，同步时间 {rating.syncDate}；版权归原作者与 Google 地图所有</p>
+        <a class="source-link" href={mapsUrl} target="_blank" rel="noopener noreferrer">在谷歌地图查看全部评价 <Icon name="external" size={15} /></a>
+      </li>
+      <li>
+        <span class="source-tag">公式・自治体</span>
+        <p class="source-text">新潟市公式サイト（所在地・開園歴・文化財指定などの確認元）</p>
+        <a class="source-link" href={site.govtTourismUrl} target="_blank" rel="noopener noreferrer">新潟市公式ウェブサイト <Icon name="external" size={15} /></a>
+      </li>
+    </ul>
+    <p class="sources-disclaimer">
+      当サイトは白山公園・新潟市・白山神社・各施設の公式サイトではありません。営業時間・行事・交通情報は変更される場合があります。評価データは {rating.syncDate} 時点の Google マップ ユーザー投稿を参照しています。
+    </p>
+  </div>
+</section>
+
+<style>
+  .sources-section { background: #fbfaf6; }
+  .sources-inner { border-radius: 28px; padding: clamp(1.8rem, 4vw, 3rem); }
+  .sources-head { margin-bottom: 1.4rem; }
+  .sources-head .section-title { margin-top: .6rem; }
+  .sources-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.4rem; }
+  .sources-list li { border-top: 1px solid rgba(23, 60, 50, .12); padding-top: 1.2rem; }
+  .source-tag { display: inline-block; font-size: .66rem; font-weight: 700; letter-spacing: .1em; color: var(--color-vermillion); margin-bottom: .5rem; }
+  .source-text { margin: 0 0 .4rem; color: var(--color-moss); font-size: .9rem; font-weight: 700; }
+  .source-note { margin: 0 0 .6rem; font-size: .72rem; line-height: 1.85; color: rgba(31, 41, 37, .5); }
+  .source-link { display: inline-flex; align-items: center; gap: .4rem; color: var(--color-moss); font-size: .8rem; font-weight: 700; border-bottom: 1px solid rgba(23, 60, 50, .3); padding-bottom: .15rem; }
+  .sources-disclaimer { margin: 1.6rem 0 0; padding-top: 1.2rem; border-top: 1px solid rgba(23, 60, 50, .12); font-size: .74rem; line-height: 1.9; color: rgba(31, 41, 37, .55); }
+</style>

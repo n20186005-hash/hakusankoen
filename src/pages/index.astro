@@ -5,36 +5,59 @@ import SectionHeading from '../components/SectionHeading.astro';
 import QuickFacts from '../components/QuickFacts.astro';
 import ParkMap from '../components/ParkMap.astro';
 import Notice from '../components/Notice.astro';
-import { site, seasons, courseList, gourmetList } from '../data/site';
+import ReviewBlock from '../components/ReviewBlock.astro';
+import SourcesSection from '../components/SourcesSection.astro';
+import FaqSection from '../components/FaqSection.astro';
+import WeatherWidget from '../components/WeatherWidget.astro';
+import VisitorServices from '../components/VisitorServices.astro';
+import SeasonalStrategy from '../components/SeasonalStrategy.astro';
+import VisitorRoutes from '../components/VisitorRoutes.astro';
+import HistoryLegend from '../components/HistoryLegend.astro';
+import ScienceResponsibility from '../components/ScienceResponsibility.astro';
+import { site, seasons, courseList, gourmetList, faqList } from '../data/site';
 
 const touristSchema = {
   '@context': 'https://schema.org',
   '@type': 'TouristAttraction',
+  '@id': `${site.url}/#attraction`,
   name: '白山公園',
-  alternateName: 'Hakusan Park',
+  alternateName: ['Hakusan Park', 'Hakusan Koen', '新潟 白山公園'],
   description: site.description,
   url: site.url,
+  image: [`${site.url}/images/og-hakusan-koen.webp`],
   isAccessibleForFree: true,
   address: {
     '@type': 'PostalAddress',
+    streetAddress: '一番堀通町地先',
     addressLocality: '新潟市中央区',
     addressRegion: '新潟県',
-    streetAddress: '一番堀通町地先',
-    addressCountry: 'JP',
+    postalCode: site.entity.postalCode,
+    addressCountry: site.entity.countryCode,
   },
   geo: {
     '@type': 'GeoCoordinates',
     latitude: site.coordinates.lat,
     longitude: site.coordinates.lng,
   },
-  image: `${site.url}/images/og-hakusan-koen.webp`,
+  hasMap: site.mapsShareUrl,
+  sameAs: [site.mapsShareUrl, site.govtTourismUrl],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqList.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: { '@type': 'Answer', text: item.answer },
+  })),
 };
 ---
-<BaseLayout schema={touristSchema}>
+<BaseLayout schema={[touristSchema, faqSchema]}>
   <section class="home-hero">
     <picture class="hero-picture">
       <source media="(max-width: 639px)" srcset="/images/hero-mobile.webp" />
-      <img src="/images/hero.webp" alt="桜が咲く白山公園のひょうたん池" width="1600" height="1000" fetchpriority="high" />
+      <img src="/images/hero.webp" alt="新潟・白山公園のひょうたん池と桜" width="1600" height="1000" fetchpriority="high" decoding="async" />
     </picture>
     <div class="hero-overlay"></div>
     <div class="container-wide hero-content">
@@ -54,12 +77,15 @@ const touristSchema = {
 
   <QuickFacts />
 
+  <WeatherWidget />
+
   <section id="intro" class="section-space intro-section">
     <div class="container-wide intro-grid">
       <div class="intro-copy" data-reveal>
         <p class="kicker">A Park with 150 Years</p>
         <h2 class="section-title">日本の都市公園の<br/>はじまりを、今の街で。</h2>
         <p class="lead">白山公園は、1873年に認可された国内最初期の都市公園のひとつ。白山神社に隣り合い、ひょうたん池、蓮池、築山、石灯籠を巡る回遊式の庭園です。</p>
+        <p class="entity-semantic">白山公園（Hakusan Park / Hakusan Koen）は、新潟県新潟市中央区にある、国指定名勝の都市公園です。</p>
         <p>春の桜、夏の蓮、秋の色づき、冬の雪景色。歴史を知る人にも、ただ静かに歩きたい人にも、季節ごとの居場所があります。</p>
         <a class="text-link" href="/about/">白山公園の歴史を読む <Icon name="arrow" size={17}/></a>
       </div>
@@ -70,6 +96,10 @@ const touristSchema = {
       </div>
     </div>
   </section>
+
+  <ReviewBlock />
+
+  <HistoryLegend />
 
   <section class="section-space season-section">
     <div class="container-wide">
@@ -91,11 +121,25 @@ const touristSchema = {
     </div>
   </section>
 
+  <SeasonalStrategy />
+
   <section class="section-space map-section">
     <div class="container-wide map-intro">
       <SectionHeading kicker="Garden & Culture" title="庭園、神社、文化施設をつなぐ" description="白山公園は、ひとつの門や一本の園路で完結しません。白山神社から歴史庭園、燕喜館、空中庭園へ、街の中をほどくように歩けます。" />
     </div>
     <div class="container-wide"><ParkMap /></div>
+    <div class="container-wide location-block" data-reveal>
+      <div class="location-embed">
+        <iframe src={site.mapsEmbedSrc} width="600" height="450" style="border:0;" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="白山公園のGoogleマップ"></iframe>
+      </div>
+      <div class="location-side">
+        <p class="kicker">Location</p>
+        <h3 class="serif location-title">新潟市中央区、白山神社のとなり。</h3>
+        <p>緯度 {site.coordinates.lat}、経度 {site.coordinates.lng}。新潟市役所から徒歩約3分、JR白山駅から約20分の立地です。</p>
+        <a class="button-secondary" href={site.mapsShareUrl} target="_blank" rel="noopener noreferrer">Google マップで開く <Icon name="external" size={16} /></a>
+        <a class="text-link" href={site.govtTourismUrl} target="_blank" rel="noopener noreferrer">新潟市公式サイト（観光情報） <Icon name="external" size={15} /></a>
+      </div>
+    </div>
   </section>
 
   <section class="section-space split-feature">
@@ -140,6 +184,8 @@ const touristSchema = {
     </div>
   </section>
 
+  <VisitorRoutes />
+
   <section class="section-space gourmet-section">
     <div class="container-wide gourmet-layout">
       <div class="gourmet-heading"><SectionHeading kicker="After the Walk" title="散歩のあとに、新潟の一皿。" description="公園内の抹茶から、古町のラーメン、タレかつ丼まで。歩く距離と気分で選べる周辺の味をまとめました。" /><a class="button-secondary" href="/gourmet/">周辺グルメを見る <Icon name="arrow" size={17}/></a></div>
@@ -150,6 +196,14 @@ const touristSchema = {
       </div>
     </div>
   </section>
+
+  <VisitorServices />
+
+  <ScienceResponsibility />
+
+  <FaqSection heading="よくある質問" />
+
+  <SourcesSection />
 
   <section class="section-space-sm visit-section">
     <div class="container-wide visit-panel paper-panel" data-reveal>
@@ -188,4 +242,14 @@ const touristSchema = {
   .visit-section { background: #f0ece3; }.visit-panel { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; border-radius: 32px; padding: clamp(2rem,5vw,4rem); }.visit-panel > div:first-child > p:last-child { color: rgba(31,41,37,.64); }.visit-actions { display: flex; flex-wrap: wrap; gap: .8rem; }.visit-panel .notice { grid-column: 1 / -1; }
   @media (max-width: 980px) { .intro-grid,.feature-grid,.enkikan-grid,.gourmet-layout { grid-template-columns: 1fr; }.intro-collage { min-height: 580px; }.feature-image { min-height: 440px; }.gourmet-heading { position: static; }.course-grid { grid-template-columns: 1fr; }.visit-panel { grid-template-columns: 1fr; } }
   @media (max-width: 760px) { .home-hero { min-height: 760px; }.hero-overlay { background: linear-gradient(0deg, rgba(15,35,29,.76) 0%, rgba(15,35,29,.2) 78%), linear-gradient(90deg, rgba(15,35,29,.38), transparent); }.hero-title-wrap { align-self: end; padding: 12rem 0 7rem; }.hero-title-wrap h1 { font-size: clamp(2.75rem,14vw,5.2rem); line-height: 1.2; }.hero-title-wrap h1 span:last-child, .hero-title-wrap > p:not(.hero-kicker), .hero-actions { margin-left: 0; }.hero-side-note { display: none; }.hero-scroll { bottom: 1.2rem; }.intro-collage { min-height: 460px; }.intro-large { width: 88%; }.intro-small { width: 52%; }.collage-stamp { width: 86px; height: 86px; font-size: .8rem; }.season-grid { grid-template-columns: 1fr; }.season-card { grid-template-columns: 1fr; }.season-card figure { min-height: 250px; }.season-copy { min-height: 270px; }.feature-image { min-height: 360px; }.enkikan-grid { display: flex; flex-direction: column-reverse; }.gourmet-list article { grid-template-columns: 38px 1fr; }.visit-actions a { width: 100%; } }
+  .entity-semantic { margin-top: 1.2rem !important; padding: .9rem 1.1rem; border-left: 3px solid var(--color-vermillion); background: rgba(155,58,49,.06); color: rgba(31,41,37,.7) !important; font-size: .82rem; line-height: 1.9; border-radius: 0 12px 12px 0; }
+  .location-block { display: grid; grid-template-columns: 1.25fr .75fr; gap: clamp(2rem, 6vw, 4rem); align-items: center; margin-top: clamp(3rem, 7vw, 6rem); }
+  .location-embed { overflow: hidden; border: 1px solid rgba(23,60,50,.1); border-radius: 28px; background: #fbfaf6; box-shadow: var(--shadow-card); }
+  .location-embed iframe { display: block; width: 100%; height: clamp(300px, 42vw, 460px); }
+  .location-side .kicker { color: #9b3a31; }
+  .location-title { margin: .6rem 0 1rem; color: #173c32; font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 500; line-height: 1.5; }
+  .location-side > p { color: rgba(31,41,37,.68); line-height: 2; }
+  .location-side .button-secondary { margin-top: 1.3rem; }
+  .location-side .text-link { display: inline-flex; align-items: center; gap: .4rem; margin-top: 1rem; border-bottom: 1px solid rgba(23,60,50,.3); padding-bottom: .2rem; color: #173c32; font-size: .78rem; font-weight: 700; }
+  @media (max-width: 900px) { .location-block { grid-template-columns: 1fr; } }
 </style>

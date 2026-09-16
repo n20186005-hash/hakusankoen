@@ -1,7 +1,26 @@
+# Dependencies
 node_modules/
+
+# Build output (regenerate before deploy)
 dist/
 .astro/
+
+# Cloudflare
 .wrangler/
+.dev.vars
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS / editor
 .DS_Store
-.env
-.env.*
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Agent / temp
+.codebuddy/
+_tmp_*

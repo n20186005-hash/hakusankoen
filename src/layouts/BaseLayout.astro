@@ -42,6 +42,14 @@ const defaultSchema = {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#173c32" />
     <meta name="format-detection" content="telephone=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="application-name" content="白山公園ガイド" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="白山公園" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="msapplication-TileColor" content="#173c32" />
+    <meta name="msapplication-config" content="none" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     {noindex && <meta name="robots" content="noindex,nofollow" />}
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -55,10 +63,12 @@ const defaultSchema = {
     <meta property="og:image" content={imageUrl} />
     <meta property="og:image:width" content="1600" />
     <meta property="og:image:height" content="900" />
+    <meta property="og:image:alt" content={`${site.name}｜白山公園（新潟）`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
+    <meta name="twitter:image:alt" content={`${site.name}｜白山公園（新潟）`} />
     <script type="application/ld+json" set:html={JSON.stringify(defaultSchema)} />
     {schemaList.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
     <!-- Google tag (gtag.js) -->
@@ -68,6 +78,13 @@ const defaultSchema = {
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', gaId, { anonymize_ip: true });
+    </script>
+    <script is:inline>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
     </script>
   </head>
   <body>
