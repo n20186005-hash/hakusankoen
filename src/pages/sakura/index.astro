@@ -3,10 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PageHero from '../../components/PageHero.astro';
 import Notice from '../../components/Notice.astro';
+import Icon from '../../components/Icon.astro';
 ---
-<BaseLayout title="白山公園の桜｜見頃・撮影場所・散歩コース" description="新潟・白山公園の桜を楽しむための見頃の目安、ひょうたん池と空中庭園の撮影場所、混雑を避ける歩き方を案内します。" image="/images/og-hakusan-koen.webp">
+<BaseLayout title="白山公園の桜｜見頃の目安・花見スポット・駐車場" description="新潟・白山公園の桜を楽しむための見頃の目安、ひょうたん池と空中庭園の撮影場所、混雑を避ける歩き方と駐車場を案内します。" image="/images/og-hakusan-koen.webp">
   <Breadcrumbs items={[{ label: '四季', href: '/seasons/' }, { label: '桜' }]} />
-  <PageHero kicker="Sakura Guide" title="水面と朱橋に、春が映る。" description="歴史庭園の落ち着いた桜と、空中庭園の開放的な桜。同じ公園の中で、二つの春景色を楽しめます。" image="/images/air-garden-sakura.webp" imageAlt="桜に包まれた白山公園空中庭園" />
+  <PageHero kicker="Sakura Guide" title="白山公園の桜" description="歴史庭園の落ち着いた桜と、空中庭園の開放的な桜。同じ公園の中で、二つの春景色を楽しめます。" image="/images/air-garden-sakura.webp" imageAlt="桜に包まれた白山公園空中庭園" />
   <section class="editorial-section">
     <div class="container-wide facts-grid">
       <div class="fact-card" data-reveal><p class="fact-label">BEST SEASON</p><strong>4月上旬–中旬</strong><p>気温によって前後する平年の目安です。</p></div>
@@ -49,5 +50,16 @@ import Notice from '../../components/Notice.astro';
       </aside>
     </div>
   </section>
-  <section class="editorial-section is-tinted"><div class="container-reading"><Notice tone="season" title="開花情報"><p>本ページは見頃の平年傾向を案内しています。開花日、満開日、ライトアップ、露店などの実施内容は年度ごとに変わります。</p></Notice></div></section>
+  <section class="editorial-section">
+    <div class="container-reading content-grid">
+      <article class="editorial-copy" data-reveal>
+        <p class="kicker">Getting There</p><h2>桜の日のアクセスと駐車場</h2>
+        <p>満開の土日は駐車場が混雑します。新潟駅から「市役所前」行きの路線バスで白山公園へ向かうと、駐車待ちを避けやすくなります。車で来る場合は、A〜Dの市営駐車場（普通車30分100円）をご利用ください。</p>
+        <ul class="tip-list"><li>早朝の散歩が静かで撮影にもおすすめ</li><li>週末は公共交通の利用を優先</li><li>夜間は文化施設と駐車場の時間に注意</li></ul>
+        <div style="display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.2rem"><a class="button-secondary" href="/access/">アクセスを確認 <Icon name="train" size={17}/></a><a class="button-ghost" href="/parking/">駐車場を見る <Icon name="car" size={17}/></a></div>
+      </article>
+      <aside class="data-card sticky-aside" data-reveal><div class="data-card-header"><h2>桜の日の目安</h2></div><div class="data-card-body"><table class="info-table"><tbody><tr><th>見頃</th><td>4月上旬–中旬</td></tr><tr><th>朝のおすすめ</th><td>7:00–9:00</td></tr><tr><th>駐車場</th><td>A〜D・計593台（案内値）</td></tr><tr><th>混雑</th><td>満開の土日</td></tr></tbody></table><p style="margin:1rem 0 0;color:rgba(31,41,37,.58);font-size:.75rem;line-height:1.8">台数は公開資料により差があります。詳細は駐車場の案内をご確認ください。</p></div></aside>
+    </div>
+  </section>
+  <section class="editorial-section is-tinted"><div class="container-reading"><Notice tone="season" title="開花情報"><p>本ページは見頃の平年傾向を案内しています。開花日、満開日、ライトアップ、露店などの実施内容は年度ごとに変わります。リアルタイムの開花状況は新潟市の公式案内などでご確認ください。</p></Notice></div></section>
 </BaseLayout>

@@ -3,11 +3,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import PageHero from '../../components/PageHero.astro';
 import Notice from '../../components/Notice.astro';
+import Icon from '../../components/Icon.astro';
+
+const verifyDate = '2026 年 10 月';
+const operatorUrl = 'https://www.kosya-niigatacity.jp/';
 const lots = [
-  {name:'A駐車場', spaces:'37台', fit:'白山神社・歴史庭園側'},
-  {name:'B駐車場', spaces:'97台', fit:'市役所・公園中央部'},
-  {name:'C駐車場', spaces:'188台', fit:'りゅーとぴあ・県民会館'},
-  {name:'D駐車場', spaces:'271台', fit:'文化施設・空中庭園'},
+  { name: 'A駐車場', spaces: '37台', fit: '白山神社・歴史庭園側' },
+  { name: 'B駐車場', spaces: '97台', fit: '市役所・公園中央部' },
+  { name: 'C駐車場', spaces: '188台', fit: 'りゅーとぴあ・県民会館' },
+  { name: 'D駐車場', spaces: '271台', fit: '文化施設・空中庭園' },
 ];
 
 const parkingFaq = {
@@ -27,7 +31,7 @@ const parkingFaq = {
       name: '駐車場は何台利用できますか？',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'A〜D駐車場を合わせて計593台です。障がい者用区画は全体で9区画設けられています。',
+        text: '公園周辺のA〜D駐車場は、区画ごとに37台・97台・188台・271台と案内され、合計593台として紹介されることが多いです。ただし、管理団体の詳細な利用案内では計580台（37・95・186・262）とされており、公開資料の間で数台の差があります。最新の利用可能台数は現地表示か管理案内でご確認ください。',
       },
     },
     {
@@ -36,6 +40,14 @@ const parkingFaq = {
       acceptedAnswer: {
         '@type': 'Answer',
         text: '入場（入庫）は8:00〜23:00、出庫は24時間可能です。',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '支払いはどうすればいいですか？',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '現金での精算が基本です。千円札と硬貨は使えますが、一般的なクレジットカードや電子マネーなどのキャッシュレス決済には対応していない場合があります。機種によっては高額紙幣を扱えない精算機もあるため、小銭を準備すると安心です。',
       },
     },
     {
@@ -49,12 +61,12 @@ const parkingFaq = {
   ],
 };
 ---
-<BaseLayout title="白山公園駐車場｜料金（30分100円）・台数（計593台）・混雑日" description="白山公園A〜D駐車場の料金、合計593台、入場時間、支払い時の注意と混雑しやすい日をまとめています。" schema={parkingFaq}>
+<BaseLayout title="白山公園駐車場｜料金30分100円・A〜Dの入口・利用時間" description="白山公園周辺のA〜D駐車場。普通車は30分100円（上限なし）、入場8:00–23:00・出庫24時間。目的に近い入口と、混雑日の公共交通利用を案内します。" schema={parkingFaq}>
   <Breadcrumbs items={[{ label: '駐車場' }]} />
-  <PageHero kicker="Parking" title="車で来る前に、料金と入口を確認。" description="白山公園周辺にはA〜Dの4駐車場があります。目的地に近い区画を選び、桜や催事の日は早めの到着を。" image="/images/air-garden-sakura.webp" imageAlt="白山公園の空中庭園" />
+  <PageHero kicker="Parking" title="白山公園駐車場" description="車で来る前に、料金と入口を確認。白山公園周辺にはA〜Dの4駐車場があり、目的地に近い区画を選ぶと便利です。桜や催事の日は早めの到着を。" image="/images/air-garden-sakura.webp" imageAlt="白山公園の空中庭園" />
   <section class="editorial-section">
     <div class="container-wide facts-grid">
-      <div class="fact-card" data-reveal><p class="fact-label">CAPACITY</p><strong>合計 593台</strong><p>A〜D駐車場の現在の案内台数。</p></div>
+      <div class="fact-card" data-reveal><p class="fact-label">CAPACITY</p><strong>計 593台（案内値）</strong><p>A〜D駐車場の一般案内の合計。</p></div>
       <div class="fact-card" data-reveal><p class="fact-label">FEE</p><strong>30分 100円</strong><p>普通車。上限料金はありません。</p></div>
       <div class="fact-card" data-reveal><p class="fact-label">ENTRY</p><strong>8:00–23:00</strong><p>出庫は24時間可能。</p></div>
     </div>
@@ -63,15 +75,23 @@ const parkingFaq = {
     <div class="container-wide">
       <div class="content-grid">
         <article class="editorial-copy" data-reveal><p class="kicker">Four Parking Areas</p><h2>A〜D駐車場の目安</h2><p>4区画は公園と文化施設を囲むように配置されています。特定の施設に近い場所が満車でも、別区画に空きがある場合があります。</p><div class="card-grid two-up" style="margin-top:1.5rem">{lots.map((lot) => <div class="fact-card"><p class="fact-label">{lot.name}</p><strong>{lot.spaces}</strong><p>{lot.fit}</p></div>)}</div></article>
-        <aside class="data-card sticky-aside" data-reveal><div class="data-card-header"><h2>利用の基本</h2></div><div class="data-card-body"><table class="info-table"><tbody><tr><th>普通車</th><td>30分ごと100円</td></tr><tr><th>入場</th><td>8:00〜23:00</td></tr><tr><th>出場</th><td>24時間</td></tr><tr><th>最大料金</th><td>設定なし</td></tr><tr><th>障がい者用</th><td>全体で9区画</td></tr><tr><th>合計</th><td>593台</td></tr></tbody></table></div></aside>
+        <aside class="data-card sticky-aside" data-reveal><div class="data-card-header"><h2>利用の基本</h2></div><div class="data-card-body"><table class="info-table"><tbody><tr><th>普通車</th><td>30分ごと100円</td></tr><tr><th>入場</th><td>8:00〜23:00</td></tr><tr><th>出場</th><td>24時間</td></tr><tr><th>最大料金</th><td>設定なし</td></tr><tr><th>障がい者用</th><td>全体で9区画</td></tr><tr><th>合計（案内値）</th><td>593台</td></tr></tbody></table></div></aside>
       </div>
     </div>
   </section>
   <section class="editorial-section">
     <div class="container-reading content-grid">
-      <article class="editorial-copy" data-reveal><p class="kicker">Busy Days</p><h2>混雑しやすい日</h2><ul class="tip-list"><li>桜が満開の土曜・日曜</li><li>白山神社の春祭・夏祭・初詣</li><li>りゅーとぴあ、県民会館の大型公演日</li><li>市役所や周辺施設の催事日</li><li>降雪時に一部区画が使いにくい日</li></ul><p style="margin-top:1.3rem">混雑が予想される日は、新潟駅からバスを使うと駐車待ちを避けやすくなります。</p><a class="button-secondary" href="/access/" style="margin-top:1rem">公共交通の案内へ</a></article>
-      <aside class="paper-panel" style="border-radius:24px;padding:1.5rem" data-reveal><h3 style="margin:0 0 .8rem;color:#173c32">精算時の注意</h3><ul class="tip-list"><li>高額紙幣を使えない精算機があります</li><li>一般的なキャッシュレス決済に未対応の場合があります</li><li>駐車券を車内に置き忘れないようにしてください</li><li>長時間利用は料金が積み上がります</li></ul></aside>
+      <article class="editorial-copy" data-reveal><p class="kicker">Payment</p><h2>精算時の注意</h2><ul class="tip-list"><li>現金での精算が基本です</li><li>千円札と硬貨は使えます</li><li>クレジットカード・電子マネーなどの一般キャッシュレス決済には未対応の場合があります</li><li>機種によっては高額紙幣を扱えない精算機があります</li><li>駐車券を車内に置き忘れないでください</li><li>長時間利用は料金が積み上がります</li></ul></article>
+      <aside class="paper-panel" style="border-radius:24px;padding:1.5rem" data-reveal><h3 style="margin:0 0 .8rem;color:#173c32">混雑しやすい日</h3><ul class="tip-list"><li>桜が満開の土曜・日曜</li><li>白山神社の春祭・夏祭・初詣</li><li>りゅーとぴあ、県民会館の大型公演日</li><li>市役所や周辺施設の催事日</li><li>降雪時に一部区画が使いにくい日</li></ul><p style="margin-top:1.3rem">混雑が予想される日は、新潟駅からバスを使うと駐車待ちを避けやすくなります。</p><a class="button-secondary" href="/access/" style="margin-top:1rem">公共交通の案内へ</a></aside>
     </div>
   </section>
-  <section class="editorial-section is-tinted"><div class="container-reading"><Notice><p>料金、利用時間、収容台数は設備更新や催事で変更されることがあります。利用前に現地表示や管理案内をご確認ください。</p></Notice></div></section>
+  <section class="editorial-section is-tinted">
+    <div class="container-reading">
+      <Notice title="収容台数について（情報の差異）">
+        <p>白山公園周辺の駐車場台数は、管理団体の一般案内で「計593台（A37・B97・C188・D271）」と紹介される一方、詳細な利用案内では「計580台（A37・B95・C186・D262）」とされているなど、公開資料の間で数台の差があります。当サイトでは一般に多く見られる593台を案内値として記載していますが、最新の利用可能台数や混雑状況は現地表示や管理案内でご確認ください。本情報は {verifyDate} 時点の当サイトによる確認です。</p>
+        <p style="margin-top:1rem"><a class="text-link" href={operatorUrl} target="_blank" rel="noopener noreferrer">新潟市開発公社（駐車場管理）の公式サイト <Icon name="external" size={15} /></a></p>
+      </Notice>
+    </div>
+  </section>
+  <section class="editorial-section"><div class="container-reading"><Notice><p>料金、利用時間、収容台数、支払い方法は設備更新や催事で変更されることがあります。利用前に現地表示や管理案内をご確認ください。</p></Notice></div></section>
 </BaseLayout>

@@ -1,8 +1,8 @@
 export const site = {
   name: '白山公園ガイド',
-  title: '白山公園ガイド（新潟）｜見どころ・桜・駐車場・アクセス',
+  title: '白山公園（新潟市）観光ガイド｜見どころ・駐車場・アクセス・桜',
   description:
-    '国指定名勝・白山公園の見どころ、桜、蓮、紅葉、アクセス、駐車場、白山神社、燕喜館、周辺グルメを案内する非公式の日本語観光ガイドです。',
+    '新潟市中央区にある白山公園の観光ガイド。ひょうたん池・空中庭園・白山神社・燕喜館の見どころをはじめ、アクセス、駐車場料金、桜の季節、散歩コースを紹介します。',
   domain: 'HakusanKoen.com',
   url: 'https://hakusankoen.com',
   address: '新潟県新潟市中央区一番堀通町地先',
@@ -16,7 +16,7 @@ export const site = {
     score: 4.1,
     count: 4413,
     source: 'Google Maps',
-    syncDate: '2026 年 9 月',
+    syncDate: '2026 年 10 月',
   },
   entity: {
     fullNameEn: 'Hakusan Park',

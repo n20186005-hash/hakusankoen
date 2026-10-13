@@ -25,10 +25,10 @@ const fullStars = Math.round(rating.score);
         </div>
       </div>
       <p class="review-source-line">
-        评分与评价数同步自谷歌地图（Google Maps）用户评价 · {rating.syncDate} · <a href={mapsUrl} target="_blank" rel="noopener noreferrer">点击查看谷歌地图全部评价↗</a>
+        Google マップの評価を参照しています · {rating.syncDate} · <a href={mapsUrl} target="_blank" rel="noopener noreferrer">Google マップで全評価を見る↗</a>
       </p>
       <p class="review-note">
-        同步自 Google 地图用户评价，同步时间 {rating.syncDate}；版权归原作者与 Google 地图所有
+        評価と評価件数は {rating.syncDate} 時点の Google マップのユーザー投稿をもとにした参考値です。当サイトが独自に収集した利用者レビューではありません。
       </p>
       <a class="button-primary review-btn" href={mapsUrl} target="_blank" rel="noopener noreferrer">
         在谷歌地图查看全部评价 <Icon name="external" size={16} />

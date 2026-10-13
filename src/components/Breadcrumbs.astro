@@ -1,7 +1,27 @@
 ---
+import { site } from '../data/site';
+
 interface Item { label: string; href?: string; }
-interface Props { items: Item[]; }
-const { items } = Astro.props;
+interface Props { items: Item[]; schema?: boolean; }
+const { items, schema = true } = Astro.props;
+
+const crumbs = [
+  { name: 'ホーム', url: '/' },
+  ...items.map((item) => ({ name: item.label, url: item.href ?? Astro.url.pathname })),
+];
+
+const breadcrumbSchema = schema
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: crumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: new URL(crumb.url, site.url).href,
+      })),
+    }
+  : null;
 ---
 <nav class="breadcrumbs container-wide" aria-label="パンくずリスト">
   <ol>
@@ -9,6 +29,9 @@ const { items } = Astro.props;
     {items.map((item) => <li>{item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}</li>)}
   </ol>
 </nav>
+{schema && breadcrumbSchema && (
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+)}
 <style>
   .breadcrumbs { padding-top: 1.2rem; }
   .breadcrumbs ol { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0; padding: 0; list-style: none; color: rgba(31,41,37,.5); font-size: .68rem; letter-spacing: .08em; }
