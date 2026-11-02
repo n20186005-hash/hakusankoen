@@ -8,7 +8,7 @@ const { compact = false } = Astro.props;
     <div><p class="kicker">Walking Map</p><h3 class="serif">白山公園を、ひとつながりに。</h3></div>
     <span>概略図・縮尺不同</span>
   </div>
-  <div class="map-canvas" role="img" aria-label="白山神社、ひょうたん池、美由岐賀岡、蓮池、燕喜館、空中庭園、りゅーとぴあの位置関係を示す概略図">
+  <div class="map-canvas" role="img" aria-label="白山神社とその下方の燕喜館、左側の蓮池、美由岐賀岡、右側のひょうたん池、空中庭園、りゅーとぴあの位置関係を示す概略図">
     <svg viewBox="0 0 920 500" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="water" x1="0" x2="1"><stop stop-color="#b9d0ca"/><stop offset="1" stop-color="#d9e4df"/></linearGradient>
@@ -24,8 +24,8 @@ const { compact = false } = Astro.props;
       <ellipse cx="514" cy="256" rx="84" ry="48" fill="url(#water)" stroke="#315b4e" stroke-opacity=".28" stroke-width="2"/>
       <circle cx="386" cy="202" r="54" fill="#b7c9ad" opacity=".84"/>
       <path d="M359 215c12-36 39-55 60-28" fill="none" stroke="#315b4e" stroke-width="4" stroke-linecap="round"/>
-      <rect x="624" y="98" width="118" height="88" rx="8" fill="#8c674d" opacity=".9"/>
-      <path d="m612 105 71-46 71 46" fill="#6b4b38"/>
+      <rect x="71" y="267" width="56" height="43" rx="4" fill="#8c674d" opacity=".9"/>
+      <path d="m64 270 35-27 35 27" fill="#6b4b38"/>
       <rect x="715" y="254" width="148" height="108" rx="18" fill="#ccd8d5" stroke="#173c32" stroke-opacity=".22"/>
       <path d="M733 328c30-48 74-69 111-61" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" opacity=".8"/>
       <rect x="67" y="72" width="92" height="92" rx="10" fill="#7b513b"/>
@@ -33,7 +33,7 @@ const { compact = false } = Astro.props;
       <path d="M111 164v45" stroke="#9b3a31" stroke-width="5"/>
       <path d="M93 182h36" stroke="#9b3a31" stroke-width="5"/>
       <g fill="#173c32" font-family="sans-serif" font-size="16" font-weight="700">
-        <text x="54" y="62">白山神社</text><text x="185" y="305">ひょうたん池</text><text x="340" y="279">美由岐賀岡</text><text x="478" y="326">蓮池</text><text x="627" y="211">燕喜館</text><text x="721" y="390">空中庭園</text><text x="738" y="435">りゅーとぴあ</text>
+        <text x="54" y="62">白山神社</text><text x="185" y="305">蓮池</text><text x="340" y="279">美由岐賀岡</text><text x="478" y="326">ひょうたん池</text><text x="69" y="335">燕喜館</text><text x="721" y="390">空中庭園</text><text x="738" y="435">りゅーとぴあ</text>
       </g>
       <g fill="#9b3a31" font-family="sans-serif" font-size="12" font-weight="700">
         <text x="77" y="225">参拝</text><text x="371" y="354">庭園散歩</text><text x="695" y="332">文化施設へ</text>
@@ -43,6 +43,7 @@ const { compact = false } = Astro.props;
       </g>
     </svg>
   </div>
+  <p class="map-credit">図の位置情報：新潟市中央区役所建設課 花田義徳様よりご提供</p>
   <div class="map-legend">
     <span><i class="route"></i>おすすめ動線</span><span><i class="water"></i>水景</span><span><i class="green"></i>緑地</span>
     <a href="/courses/">散歩コースを見る <Icon name="arrow" size={16}/></a>
@@ -55,6 +56,7 @@ const { compact = false } = Astro.props;
   .map-head > span { color: rgba(31,41,37,.45); font-size: .65rem; }
   .map-canvas { padding-inline: 1rem; }
   .map-canvas svg { width: 100%; height: auto; }
+  .map-credit { margin: 0; padding: .6rem 2rem; color: #52655d; font-size: .72rem; line-height: 1.6; }
   .map-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 1.4rem; border-top: 1px solid rgba(23,60,50,.09); padding: 1.1rem 2rem 1.4rem; color: rgba(31,41,37,.62); font-size: .72rem; }
   .map-legend span { display: inline-flex; align-items: center; gap: .5rem; }
   .map-legend i { display: inline-block; width: 22px; height: 6px; border-radius: 999px; }
