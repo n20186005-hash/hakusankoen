@@ -72,12 +72,26 @@ const defaultSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(defaultSchema)} />
     {schemaList.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
     <!-- Google tag (gtag.js) -->
-    <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
     <script is:inline define:vars={{ gaId: site.gaId }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
+      gtag('consent', 'default', { analytics_storage: 'denied' });
       gtag('config', gaId, { anonymize_ip: true });
+      window.hakusanLoadAnalytics = function () {
+        if (document.querySelector('script[data-hakusan-analytics]')) return;
+        var script = document.createElement('script');
+        script.async = true;
+        script.dataset.hakusanAnalytics = 'true';
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(gaId);
+        document.head.appendChild(script);
+      };
+      try {
+        if (localStorage.getItem('hakusan-analytics-consent') === 'granted') {
+          gtag('consent', 'update', { analytics_storage: 'granted' });
+          window.hakusanLoadAnalytics();
+        }
+      } catch (e) {}
     </script>
     <script is:inline>
       if ('serviceWorker' in navigator) {

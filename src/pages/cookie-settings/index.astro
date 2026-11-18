@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="Cookie 設定｜白山公園ガイド" description="白山公園ガイドのアクセス解析Cookieについて確認し、使用を許可・拒否できます。" noindex={true}>
+  <Breadcrumbs items={[{ label: 'Cookie 設定' }]} />
+  <PageHero kicker="Cookie Settings" title="Cookie 設定" description="サイトの閲覧に必要な機能と、任意のアクセス解析について設定できます。" />
+  <section class="editorial-section"><article class="container-reading prose-jp" data-reveal>
+    <h2>アクセス解析の選択</h2>
+    <p>ページの改善のため Google Analytics 4 を利用しています。分析用 Cookie を許可しなくても、景点情報や地図へのリンクは利用できます。</p>
+    <p>必須の表示機能はこの選択にかかわらず動作します。選択内容はこのブラウザに保存され、いつでも変更できます。</p>
+    <p id="cookie-current" role="status" aria-live="polite">現在の設定を読み込んでいます…</p>
+    <div class="cookie-actions"><button type="button" id="cookie-accept" class="button-primary">分析 Cookie を許可</button><button type="button" id="cookie-reject" class="button-secondary">分析 Cookie を拒否</button></div>
+    <p>詳しくは<a href="/privacy/">プライバシーポリシー</a>をご覧ください。</p>
+  </article></section>
+  <script is:inline>
+    (function () {
+      var status = document.getElementById('cookie-current');
+      function show() {
+        var value = null;
+        try { value = localStorage.getItem('hakusan-analytics-consent'); } catch (e) {}
+        status.textContent = value === 'granted' ? '現在の設定：許可' : value === 'denied' ? '現在の設定：拒否' : '現在の設定：未選択（分析 Cookie は無効）';
+      }
+      function save(value) {
+        try { localStorage.setItem('hakusan-analytics-consent', value); } catch (e) {}
+        if (typeof gtag === 'function') gtag('consent', 'update', { analytics_storage: value });
+        if (value === 'granted' && typeof window.hakusanLoadAnalytics === 'function') window.hakusanLoadAnalytics();
+        show();
+      }
+      document.getElementById('cookie-accept').addEventListener('click', function () { save('granted'); });
+      document.getElementById('cookie-reject').addEventListener('click', function () { save('denied'); });
+      show();
+    })();
+  </script>
+</BaseLayout>
+<style>.cookie-actions { display:flex; gap:1rem; flex-wrap:wrap; margin:1.5rem 0; } .cookie-actions button { cursor:pointer; border:0; }</style>

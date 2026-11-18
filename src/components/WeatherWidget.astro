@@ -43,6 +43,7 @@ import { weather } from '../data/site';
 
       <ul class="weather-forecast" id="wx-forecast" aria-label="週間天気予報"></ul>
       <p class="weather-note" id="wx-note"></p>
+      <button type="button" class="weather-retry" id="wx-retry" hidden>↻ 天気を再読み込み</button>
     </div>
   </div>
 </section>
@@ -53,6 +54,8 @@ import { weather } from '../data/site';
 (function () {
   var cfg = JSON.parse(document.getElementById('weather-config').textContent);
   var card = document.getElementById('weather-card');
+  var retry = document.getElementById('wx-retry');
+  var loading = false;
   var WEEK = ['日', '月', '火', '水', '木', '金', '土'];
 
   var CODE = {
@@ -255,27 +258,54 @@ import { weather } from '../data/site';
     document.getElementById('wx-forecast').innerHTML = html;
   }
 
-  async function load() {
-    var data = null;
+  function valid(data) {
+    return data && data.current && Number.isFinite(data.current.temperature_2m)
+      && data.daily && Array.isArray(data.daily.time) && data.daily.time.length > 0
+      && Array.isArray(data.daily.weather_code) && Array.isArray(data.daily.temperature_2m_max)
+      && Array.isArray(data.daily.temperature_2m_min);
+  }
+
+  async function request(url) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, 9000);
     try {
-      var r = await fetch(cfg.endpoint, { headers: { accept: 'application/json' } });
-      if (r.ok) data = await r.json();
-    } catch (e) {}
+      var separator = url.indexOf('?') === -1 ? '?' : '&';
+      var response = await fetch(url + separator + '_refresh=' + Date.now(), { signal: controller.signal, cache: 'no-store', headers: { accept: 'application/json' } });
+      if (!response.ok) return null;
+      var result = await response.json();
+      return valid(result) ? result : null;
+    } catch (e) { return null; }
+    finally { clearTimeout(timer); }
+  }
+
+  async function load() {
+    if (loading) return;
+    loading = true;
+    retry.hidden = true;
+    retry.disabled = true;
+    card.dataset.state = 'loading';
+    setText('wx-label', '天気を読み込み中…');
+    var data = null;
+    data = await request(cfg.endpoint);
     if (!data) {
-      try {
-        var r2 = await fetch(cfg.direct);
-        if (r2.ok) { data = await r2.json(); setText('wx-note', '最新の気象データを表示しています。'); }
-      } catch (e2) {}
+      data = await request(cfg.direct);
+      if (data) setText('wx-note', '最新の気象データを表示しています。');
     }
     if (!data) {
       card.dataset.state = 'error';
-      setText('wx-label', '現在、天気を取得できません。しばらくしてから再度ご確認ください。');
+      setText('wx-label', '現在、天気を取得できません。下のボタンから再読み込みできます。');
+      retry.hidden = false;
+      retry.disabled = false;
+      loading = false;
       return;
     }
     render(data);
     card.dataset.state = 'ready';
+    retry.disabled = false;
+    loading = false;
   }
 
+  retry.addEventListener('click', load);
   load();
 })();
 </script>
@@ -291,7 +321,8 @@ import { weather } from '../data/site';
       "now meta"
       "advice advice"
       "forecast forecast"
-      "note note";
+      "note note"
+      "retry retry";
     gap: 1.5rem 2rem;
     border: 1px solid rgba(23,60,50,.12);
     border-radius: 28px;
@@ -335,12 +366,16 @@ import { weather } from '../data/site';
   .wf-temp b { color: var(--color-moss); }
   .wf-pop { font-size: .6rem; color: rgba(31,41,37,.45); }
   .weather-note { grid-area: note; margin: 0; font-size: .72rem; color: rgba(31,41,37,.5); }
+  .weather-retry { grid-area: retry; justify-self: center; border: 1px solid var(--color-moss); border-radius: 999px; background: var(--color-moss); color: #fff; padding: .7rem 1.3rem; font: inherit; font-size: .85rem; cursor: pointer; }
+  .weather-retry:hover { background: #285847; }
+  .weather-retry:focus-visible { outline: 3px solid var(--color-vermillion); outline-offset: 3px; }
+  .weather-retry[hidden] { display: none; }
   .weather-card[data-state="loading"] .weather-now-label { color: rgba(31,41,37,.4); }
   @media (max-width: 880px) {
     .wx-advice-grid { grid-template-columns: 1fr; gap: 1.3rem; }
   }
   @media (max-width: 760px) {
-    .weather-card { grid-template-columns: 1fr; grid-template-areas: "now" "meta" "advice" "forecast" "note"; }
+    .weather-card { grid-template-columns: 1fr; grid-template-areas: "now" "meta" "advice" "forecast" "note" "retry"; }
     .weather-forecast { grid-template-columns: repeat(4, 1fr); row-gap: 1rem; }
   }
 </style>

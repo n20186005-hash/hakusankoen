@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import SourcesSection from '../../components/SourcesSection.astro';
+---
+<BaseLayout title="資料來源と更新情報｜白山公園ガイド" description="白山公園の評価・新潟市公式資料など、当サイトの主要な情報源と更新時点をご案内します。">
+  <Breadcrumbs items={[{ label: '資料來源' }]} />
+  <PageHero kicker="Sources" title="資料來源と更新情報" description="白山公園の情報を確認するときに参照する、評価データと自治体の公式資料をまとめています。" />
+  <SourcesSection />
+</BaseLayout>

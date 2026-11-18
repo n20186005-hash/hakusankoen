@@ -14,9 +14,9 @@ export const site = {
   govtTourismUrl: 'https://www.city.niigata.lg.jp/',
   rating: {
     score: 4.1,
-    count: 4413,
+    count: 4462,
     source: 'Google Maps',
-    syncDate: '2026 年 10 月',
+    syncDate: '2026 年 11 月',
   },
   entity: {
     fullNameEn: 'Hakusan Park',

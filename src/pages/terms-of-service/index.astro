@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+---
+<BaseLayout title="利用規約｜白山公園ガイド" description="白山公園ガイドの利用条件、情報の取り扱い、外部リンク、免責事項についてご案内します。" noindex={true}>
+  <Breadcrumbs items={[{ label: '利用規約' }]} />
+  <PageHero kicker="Terms of Service" title="利用規約" description="白山公園と周辺を安心して散策するための、当サイトの利用条件をご案内します。" />
+  <section class="editorial-section"><article class="container-reading prose-jp" data-reveal>
+    <h2>1. サイトの目的</h2><p>当サイトは、新潟市の白山公園と周辺の散策に役立つ情報をまとめた独立した観光情報サイトです。行政機関や各施設の公式サイトではありません。</p>
+    <h2>2. 情報の利用</h2><p>掲載内容は旅行計画の参考情報です。開園状況、利用料金、催事、交通、駐車場、天候などは変更されることがあります。訪問前に各施設の公式発表や現地案内をご確認ください。</p>
+    <h2>3. 写真・文章</h2><p>サイトに掲載された文章・写真などの権利は、それぞれの権利者に帰属します。出典については<a href="/credits/">写真・資料</a>をご覧ください。</p>
+    <h2>4. 外部サイト</h2><p>Google マップ、自治体、文化施設などへのリンクを掲載する場合があります。リンク先の情報やサービスは、それぞれの運営者の方針に従います。</p>
+    <h2>5. 免責事項</h2><p>情報の更新に努めますが、内容の完全性・正確性・即時性を保証するものではありません。現地での安全判断と各施設の指示を優先してください。</p>
+    <h2>6. 改定</h2><p>サイト機能や運営内容に応じて本規約を更新することがあります。更新した内容は本ページに掲載します。</p>
+  </article></section>
+</BaseLayout>
