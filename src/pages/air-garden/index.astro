@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+import Notice from '../../components/Notice.astro';
+
+const maps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('白山公園 空中庭園 新潟市中央区');
+const faq = { '@context':'https://schema.org', '@type':'FAQPage', mainEntity: [
+  { '@type':'Question', name:'白山公園の空中庭園はどこですか？', acceptedAnswer:{ '@type':'Answer', text:'白山公園と新潟市民芸術文化会館りゅーとぴあの周辺にあり、白山公園駐車場の上部に庭園と空中回廊が広がっています。' } },
+  { '@type':'Question', name:'空中庭園は無料で散策できますか？', acceptedAnswer:{ '@type':'Answer', text:'通常は公共の散策空間として利用できますが、屋上庭園など一部区域は工事・管理のため閉鎖する場合があります。訪問前に施設の最新告知をご確認ください。' } },
+] };
+---
+<BaseLayout title="白山公園 空中庭園｜場所・散策ルート・桜と夜景・りゅーとぴあ" description="新潟市の白山公園空中庭園を歩くためのガイド。6つの庭園と空中回廊、りゅーとぴあとの位置関係、桜・紅葉の見どころ、駐車場と最新の閉鎖情報の確認先。" schema={faq}>
+  <Breadcrumbs items={[{label:'空中庭園'}]} />
+  <PageHero kicker="Sky Gardens" title="白山公園 空中庭園" description="歴史庭園から文化会館へ。駐車場の上に広がる緑の回廊を歩き、水路、樹木、建築の重なりを楽しみます。" image="/images/air-garden-sakura.webp" imageAlt="白山公園の空中庭園と桜の実景" />
+  <section class="editorial-section"><div class="container-wide facts-grid">
+    <div class="fact-card"><p class="fact-label">LOCATION</p><strong>白山公園・りゅーとぴあ周辺</strong><p>新潟市中央区一番堀通町</p></div>
+    <div class="fact-card"><p class="fact-label">HISTORY</p><strong>1998年 整備</strong><p>公園区域の拡張に伴い空中回廊を整備</p></div>
+    <div class="fact-card"><p class="fact-label">WALK</p><strong>約20〜40分</strong><p>写真撮影と休憩を含む散策の目安</p></div>
+  </div></section>
+  <section class="editorial-section is-tinted"><div class="container-wide content-grid"><article class="editorial-copy"><p class="kicker">Garden & Architecture</p><h2>庭園と街を結ぶ、立体的な散歩道</h2><p>明治期から続く白山公園は、1998年の区域拡張で文化施設の周囲へつながりました。新潟市の案内では、6つの空中庭園とそれらを結ぶ空中回廊が整備され、かつてのように信濃川方面へ歩いて行ける構成になったと説明されています。</p><p>見どころは水路や池、段差のある緑地と、りゅーとぴあの曲線的な建築が織りなす眺め。春は桜、秋は色づく木々が散策路を彩ります。</p><p>りゅーとぴあの「屋上庭園」は、空中庭園全体と同じ開放状況とは限りません。2026年11月9日からの屋上庭園閉鎖告知があるため、当日の通行・利用範囲は公式情報を確認してください。</p></article><aside class="data-card sticky-aside"><div class="data-card-header"><h2>基本情報</h2></div><div class="data-card-body"><table class="info-table"><tbody><tr><th>所在地</th><td>新潟県新潟市中央区一番堀通町</td></tr><tr><th>管理情報</th><td>新潟市整備の都市公園・空中庭園。駐車場と付帯施設は新潟市開発公社が案内</td></tr><tr><th>料金</th><td>屋外の通常散策は無料</td></tr><tr><th>所要時間</th><td>約20〜40分</td></tr><tr><th>駐車</th><td><a href="/parking/">白山公園A〜D駐車場</a></td></tr></tbody></table><a class="button-secondary" href={maps} target="_blank" rel="noopener noreferrer" style="margin-top:1rem">Google マップで場所を確認 ↗</a></div></aside></div></section>
+  <section class="editorial-section"><div class="container-wide content-grid is-reversed"><div class="photo-pair"><figure class="image-frame"><img src="/images/air-garden-sakura.webp" alt="春の空中庭園と桜" width="1280" height="900" loading="lazy" /></figure><figure class="image-frame"><img src="/images/autumn-walk.webp" alt="白山公園の秋の散策路" width="1280" height="900" loading="lazy" /></figure></div><article class="editorial-copy"><p class="kicker">Walking Route</p><h2>おすすめの歩き方</h2><ol class="numbered-list"><li><h3>白山神社から歴史庭園へ</h3><p>境内と池畔を見比べ、昔からの庭園部分を歩きます。</p></li><li><h3>りゅーとぴあ方向へ進む</h3><p>案内表示に沿って文化施設を囲む回廊へ。階段・エレベーターの運用状況は現地で確認します。</p></li><li><h3>水景と建築を撮影</h3><p>広角では回廊の曲線を、近景では水辺と樹木の重なりを写します。通路を塞がないよう配慮してください。</p></li><li><h3>信濃川方面または公園へ戻る</h3><p>時間に余裕があれば川沿いへ、短時間なら歴史庭園へ折り返します。</p></li></ol></article></div></section>
+  <section class="editorial-section is-tinted"><div class="container-reading"><h2>訪問前に確認すること</h2><p>桜の見頃やライトアップ、回廊の通行可能範囲は天候・催事・維持管理で変わります。夜間は足元と閉鎖表示に注意し、施設入口と屋上庭園を混同しないようにしましょう。</p><p><a class="text-link" href="https://www.city.niigata.lg.jp/chuo/shisetsu/yoka/leisure/hakusan.html" target="_blank" rel="noopener noreferrer">新潟市・白山公園の案内 ↗</a>　<a class="text-link" href="https://www.ryutopia.or.jp/" target="_blank" rel="noopener noreferrer">りゅーとぴあ最新のお知らせ ↗</a></p><Notice><p>施設の一部が閉鎖されていても、公園や周辺回廊のすべてが閉鎖されているとは限りません。現地の表示で利用可能な動線を確認してください。</p></Notice><p style="margin-top:1.5rem"><a class="text-link" href="/parking-guide/">車で訪れる場合のA〜D駐車場の選び方 →</a>　<a class="text-link" href="/courses/">散歩コース →</a></p></div></section>
+</BaseLayout>

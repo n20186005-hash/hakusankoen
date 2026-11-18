@@ -5,7 +5,7 @@ import PageHero from '../../components/PageHero.astro';
 import ParkMap from '../../components/ParkMap.astro';
 import Notice from '../../components/Notice.astro';
 ---
-<BaseLayout title="白山公園へのアクセス｜新潟駅からバス・白山駅から徒歩" description="新潟駅から白山公園へ向かうバス（市役所前）、JR白山駅からの徒歩、自動車、タクシーの目安と到着後の入口を案内します。">
+<BaseLayout title="白山公園アクセス｜新潟駅からバス・白山駅から徒歩・駐車場" description="白山公園への行き方を比較。新潟駅から市役所前行きの路線バスと観光循環バス、JR白山駅から徒歩約20分、車の駐車場A〜Dと目的地別の入口を案内します。">
   <Breadcrumbs items={[{ label: 'アクセス' }]} />
   <PageHero kicker="Access" title="白山公園へのアクセス" description="新潟駅から「市役所前」行き路線バスで白山公園へ。白山駅からは街並みを歩いて約20分。車・タクシーの目安と、到着後の入口も案内します。" image="/images/autumn-walk.webp" imageAlt="白山公園空中庭園の歩道" />
   <section class="editorial-section">
@@ -50,7 +50,7 @@ import Notice from '../../components/Notice.astro';
       <article class="editorial-copy" data-reveal><p class="kicker">Arriving at the Park</p><h2>入口は目的に合わせて</h2><h3>白山神社から</h3><p>参拝を先に済ませ、梅林からひょうたん池へ進む流れが自然です。</p><h3>市役所・文化施設側から</h3><p>バス利用、りゅーとぴあ、空中庭園を目的にする場合に便利です。</p><h3>燕喜館・蓮池側から</h3><p>伝統建築と静かな水辺を中心に歩きたいときに向きます。</p><a class="button-secondary" href="/courses/" style="margin-top:1rem">散歩コースを見る</a></article>
     </div>
   </section>
-  <section class="editorial-section is-tinted"><div class="container-reading"><Notice><p>バスの乗り場、時刻、運賃は変更されることがあります。大雪、祭礼、マラソン、文化施設の催事日は交通規制や遅延にもご注意ください。</p></Notice></div></section>
+  <section class="editorial-section is-tinted"><div class="container-reading editorial-copy"><h2>新潟駅から白山公園前までのバスを調べる</h2><p>観光循環バスは「白山公園前」停留所に停車します。通常の路線バスは「市役所前」が便利です。乗り場とダイヤを混同しないよう、利用する便を決めてから運行事業者の案内を確認してください。</p><p><a class="text-link" href="https://www.city.niigata.lg.jp/kanko/kanko/kankobus/kankobusnitsuite.html" target="_blank" rel="noopener noreferrer">新潟市観光循環バスの公式情報 ↗</a>　<a class="text-link" href="https://www.city.niigata.lg.jp/kurashi/doro/kotsu/mm/norikaeannaisaito.html" target="_blank" rel="noopener noreferrer">路線バス時刻・運賃検索 ↗</a></p><h3>施設別のアクセス</h3><p><a href="/nearby/ryutopia/">りゅーとぴあ</a>、<a href="/nearby/niigata-kenminkaikan/">新潟県民会館</a>、<a href="/nearby/ongaku-bunka-kaikan/">音楽文化会館</a>では最寄りの入口が異なります。公演の予定がある日は各施設のページで駐車場を確認してください。</p><Notice><p>バスの乗り場、時刻、運賃は変更されることがあります。大雪、祭礼、マラソン、文化施設の催事日は交通規制や遅延にもご注意ください。</p></Notice></div></section>
 </BaseLayout>
 
 <style>

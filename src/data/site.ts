@@ -30,6 +30,7 @@ export const site = {
 };
 
 export const mainNav = [
+  { label: '周辺スポット', href: '/nearby/' },
   { label: '見どころ', href: '/highlights/' },
   { label: '四季', href: '/seasons/' },
   { label: '散歩コース', href: '/courses/' },

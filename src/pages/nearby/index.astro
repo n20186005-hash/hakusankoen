@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
+const places = [
+ {title:'りゅーとぴあ 新潟市民芸術文化会館',href:'/nearby/ryutopia/',label:'舞台芸術と屋上・空中庭園',image:'/images/ryutopia-exterior.jpg',alt:'りゅーとぴあの建物外観'},
+ {title:'新潟県民会館',href:'/nearby/niigata-kenminkaikan/',label:'震災復興と県民文化のホール',image:'/images/niigata-kenminkaikan-exterior.jpg',alt:'新潟県民会館の建物外観'},
+ {title:'新潟市音楽文化会館',href:'/nearby/ongaku-bunka-kaikan/',label:'1977年開館の市民音楽施設',image:'/images/ongaku-bunka-kaikan-exterior.jpg',alt:'新潟市音楽文化会館の建物外観'},
+ {title:'白山公園 空中庭園',href:'/air-garden/',label:'水辺と緑を結ぶ空中回廊',image:'/images/air-garden-sakura.webp',alt:'白山公園の空中庭園'},
+ {title:'白山神社',href:'/hakusan-jinja/',label:'境内と歴史庭園をつなぐ',image:'/images/hakusan-shrine.webp',alt:'白山神社の拝殿'},
+ {title:'燕喜館',href:'/enkikan/',label:'明治期の商家文化と庭園',image:'/images/enkikan.webp',alt:'燕喜館の実景'},
+];
+---
+<BaseLayout title="白山公園の周辺スポット｜りゅーとぴあ・新潟県民会館・音楽文化会館" description="白山公園から歩いて巡る周辺スポット。りゅーとぴあ、新潟県民会館、新潟市音楽文化会館、空中庭園、白山神社、燕喜館の歴史とアクセスを紹介。">
+ <Breadcrumbs items={[{label:'周辺スポット'}]}/>
+ <PageHero kicker="Nearby Places" title="白山公園の周辺スポット" description="庭園の緑から音楽と舞台芸術の街へ。公園周辺の文化施設を、歴史と立ち寄り方とともに紹介します。" image="/images/air-garden-sakura.webp" imageAlt="白山公園の空中庭園"/>
+ <section class="editorial-section is-tinted"><div class="container-wide"><div class="editorial-copy"><p class="kicker">Explore</p><h2>近くで立ち寄りたい6つの場所</h2><p>施設ごとに開館時間や入場条件が異なります。公園散策だけの日と公演を見る日で、訪れる順序を調整してみましょう。</p></div><div class="card-grid two-up" style="margin-top:2rem">{places.map(place=><a class="fact-card" href={place.href}><figure class="image-frame" style="margin-bottom:1rem;aspect-ratio:16/9"><img src={place.image} alt={place.alt} width="1280" height="720" loading="lazy"/></figure><p class="fact-label">NEARBY</p><strong>{place.title} →</strong><p>{place.label}</p></a>)}</div></div></section>
+ <section class="editorial-section"><div class="container-reading editorial-copy"><h2>回り方のヒント</h2><p>白山神社と歴史庭園から散策を始め、燕喜館、空中庭園を巡って文化施設方面へ。公演を見る日は開演時刻を優先し、移動時間に余裕を取ってください。</p><p><a class="text-link" href="/access/">新潟駅・白山駅からのアクセス →</a>　<a class="text-link" href="/parking-guide/">A〜D駐車場の選び方 →</a></p></div></section>
+</BaseLayout>
